@@ -15,7 +15,7 @@ import java.sql.SQLException;
  *
  * @author arpitarai
  */
-public class HospitalSystem {
+public class JDBCConnection {
 
     /**
      * @param args the command line arguments
@@ -27,12 +27,14 @@ public class HospitalSystem {
             Class.forName("com.mysql.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/JDBC_HospitalSchema", "root", "9125arpitarai");
             Statement statement = (Statement) connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM JDBC_HospitalSchema.PatientTable");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM JDBC_HospitalSchema.PatientTable;");
             while (resultSet.next()) {
-                System.out.println(resultSet.getString("PatientName"));
+                System.out.println(resultSet.getString("PatientFirstName"));
+
             }
+            connection.close();
+            System.out.println("DB Connection Close!!!");
         } catch (ClassNotFoundException | SQLException exception) {
-            System.out.println("Connection to MySQl failed !!!");
         }
     }
 
