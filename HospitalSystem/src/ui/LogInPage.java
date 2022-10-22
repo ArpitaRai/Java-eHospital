@@ -188,12 +188,12 @@ public class LogInPage extends javax.swing.JFrame {
             ResultSet resultSet = statement.executeQuery(sql);
 
             if ("Patient ".equals(roleSelected1) && resultSet.next()) {
-                Patient1 patient1 = new Patient1();
+                PatientView patient1 = new PatientView();
                 System.out.println(resultSet.getString(sql + "UserID"));
                 patient1.show();
             }
             else if ("Doctor".equals(roleSelected1) && resultSet.next()) {
-                Doctor doctor = new Doctor();
+                DoctorView doctor = new DoctorView();
                 System.out.println(resultSet.getString("UserID"));
                 doctor.show();
             }
