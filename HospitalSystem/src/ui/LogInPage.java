@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import hospitalsystem.JDBCConnection;
+import java.awt.HeadlessException;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -16,6 +18,8 @@ import javax.swing.JOptionPane;
  * @author arpitarai
  */
 public class LogInPage extends javax.swing.JFrame {
+
+    JDBCConnection JjDBCConnection;
 
     /**
      * Creates new form doctor1
@@ -178,48 +182,44 @@ public class LogInPage extends javax.swing.JFrame {
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/JDBC_HospitalSchema", "root", "9125arpitarai");
-            Statement statement = (Statement) connection.createStatement();
-            String roleSelected1 = (String) roleSelected.getSelectedItem();
-            String userId1 = userId.getText();
-            String password1 = password.getText();
-            String sql = "SELECT * FROM JDBC_HospitalSchema.LogInCredential where UserType ='" + roleSelected1 + "' and UserID ='" + userId1 + "' and Password = '" + password1 + "'";
-            ResultSet resultSet = statement.executeQuery(sql);
+            try ( Connection connection = JDBCConnection.Connect()) {
+                Statement statement = (Statement) connection.createStatement();
+                String roleSelected1 = (String) roleSelected.getSelectedItem();
+                String userId1 = userId.getText();
+                String password1 = password.getText();
+                String sql = "SELECT * FROM JDBC_HospitalSchema.LogInCredential where UserType ='" + roleSelected1 + "' and UserID ='" + userId1 + "' and Password = '" + password1 + "'";
+                ResultSet resultSet = statement.executeQuery(sql);
 
-            if ("Patient ".equals(roleSelected1) && resultSet.next()) {
-                PatientView patient1 = new PatientView();
-                System.out.println(resultSet.getString(sql + "UserID"));
-                patient1.show();
-            }
-            else if ("Doctor".equals(roleSelected1) && resultSet.next()) {
-                DoctorView doctor = new DoctorView();
-                System.out.println(resultSet.getString("UserID"));
-                doctor.show();
-            }
-            else if ("Hospital Admin".equals(roleSelected1) && resultSet.next()) {
-                HospitalAdminView hospitalAdminView = new HospitalAdminView();
-                System.out.println(resultSet.getString("UserID"));
-                hospitalAdminView.show();
-            }
-            else if ("Community Admin".equals(roleSelected1) && resultSet.next()) {
-                CommunityAdminView communityAdminView = new CommunityAdminView();
-                System.out.println(resultSet.getString("UserID"));
-                communityAdminView.show();
-            }
-            else if ("System Admin".equals(roleSelected1) && resultSet.next()) {
-                SystemAdminView systemAdminView = new SystemAdminView();
-                System.out.println(resultSet.getString("UserID"));
-                systemAdminView.show();
-            } else {
-                JOptionPane.showMessageDialog(this, "Incorrect Credentials!");
-                userId.setText("");
-                password.setText("");
+                if ("Patient ".equals(roleSelected1) && resultSet.next()) {
+                    PatientView patient1 = new PatientView();
+                    System.out.println(resultSet.getString(sql + "UserID"));
+                    patient1.show();
+                } else if ("Doctor".equals(roleSelected1) && resultSet.next()) {
+                    DoctorView doctor = new DoctorView();
+                    System.out.println(resultSet.getString("UserID"));
+                    doctor.show();
+                } else if ("Hospital Admin".equals(roleSelected1) && resultSet.next()) {
+                    HospitalAdminView hospitalAdminView = new HospitalAdminView();
+                    System.out.println(resultSet.getString("UserID"));
+                    hospitalAdminView.show();
+                } else if ("Community Admin".equals(roleSelected1) && resultSet.next()) {
+                    CommunityAdminView communityAdminView = new CommunityAdminView();
+                    System.out.println(resultSet.getString("UserID"));
+                    communityAdminView.show();
+                } else if ("System Admin".equals(roleSelected1) && resultSet.next()) {
+                    SystemAdminView systemAdminView = new SystemAdminView();
+                    System.out.println(resultSet.getString("UserID"));
+                    systemAdminView.show();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Incorrect Credentials!");
+                    userId.setText("");
+                    password.setText("");
 
+                }
             }
-            connection.close();
             System.out.println("DB Connection Close!!!");
-        } catch (ClassNotFoundException | SQLException exception) {
+        } catch (HeadlessException | SQLException exception) {
+            System.out.println(exception);
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 

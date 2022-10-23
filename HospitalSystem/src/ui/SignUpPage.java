@@ -4,6 +4,8 @@
  */
 package ui;
 
+import hospitalsystem.JDBCConnection;
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -155,15 +157,12 @@ public class SignUpPage extends javax.swing.JFrame {
     private void createNewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNewUserActionPerformed
         // TODO add your handling code here:
 
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/JDBC_HospitalSchema", "root", "9125arpitarai");
+        try ( Connection connection = JDBCConnection.Connect()) {
             Statement statement = (Statement) connection.createStatement();
             String roleSelected1 = (String) roleSelected.getSelectedItem();
             String userId1 = userId.getText();
             String password1 = password.getText();
-            ;
-            String sql = "INSERT INTO JDBC_HospitalSchema.LogInCredential " +  "VALUES ('" + roleSelected1 + "' , '" + userId1 + "' , '" + password1 + "');";
+            String sql = "INSERT INTO JDBC_HospitalSchema.LogInCredential " + "(UserType, UserID, Password)" + "VALUES ('" + roleSelected1 + "' , '" + userId1 + "' , '" + password1 + "');";
             System.out.println(sql);
             statement.executeUpdate(sql);
             System.out.println("Data inserted secccessfully!");
@@ -173,7 +172,8 @@ public class SignUpPage extends javax.swing.JFrame {
             connection.close();
             System.out.println("DB Connection Close!!!");
     }//GEN-LAST:event_createNewUserActionPerformed
-catch (ClassNotFoundException | SQLException exception) {
+catch (HeadlessException | SQLException exception) {
+            System.out.println(exception);
         }
     }
 
