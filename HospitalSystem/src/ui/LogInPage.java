@@ -188,11 +188,13 @@ public class LogInPage extends javax.swing.JFrame {
                 String userId1 = userId.getText();
                 String password1 = password.getText();
                 String sql = "SELECT * FROM JDBC_HospitalSchema.LogInCredential where UserType ='" + roleSelected1 + "' and UserID ='" + userId1 + "' and Password = '" + password1 + "'";
-                ResultSet resultSet = statement.executeQuery(sql);
+                System.out.println(sql);
 
-                if ("Patient ".equals(roleSelected1) && resultSet.next()) {
+                ResultSet resultSet = statement.executeQuery(sql);
+               // System.out.println(resultSet.getString("UserID"));
+                if ("Patient".equals(roleSelected1) && resultSet.next()) {
                     PatientView patient1 = new PatientView();
-                    System.out.println(resultSet.getString(sql + "UserID"));
+                    //System.out.println(resultSet.getString(sql + "UserID"));
                     patient1.show();
                 } else if ("Doctor".equals(roleSelected1) && resultSet.next()) {
                     DoctorView doctor = new DoctorView();
@@ -220,6 +222,7 @@ public class LogInPage extends javax.swing.JFrame {
             System.out.println("DB Connection Close!!!");
         } catch (HeadlessException | SQLException exception) {
             System.out.println(exception);
+            JOptionPane.showMessageDialog(this, exception);
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 
