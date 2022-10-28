@@ -8,7 +8,7 @@ package model;
  *
  * @author arpitarai
  */
-public class Residence {
+public class Residence extends DoctorDetails{
 
     public String city;
     public String community;

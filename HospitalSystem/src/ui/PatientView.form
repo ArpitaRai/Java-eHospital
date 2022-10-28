@@ -236,6 +236,9 @@
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="searchHospital">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchHospitalActionPerformed"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane2">
               <AuxValues>

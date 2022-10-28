@@ -387,28 +387,25 @@ public class DoctorView extends javax.swing.JFrame {
         try {
             try ( Connection connection = JDBCConnection.Connect()) {
                 Statement statement = (Statement) connection.createStatement();
-                String sql = "Select * from JDBC_HospitalSchema.Appointment";
+                String sql = "SELECT * FROM JDBC_HospitalSchema.HospitalDetails;";
                 ResultSet resultSet = statement.executeQuery(sql);
                 appointmentList = new AppointmentList();
                 while (resultSet.next()) {
                     Appointment appointment = appointmentList.addAppointment();
-                    appointment.setDate(resultSet.getString("Date"));
-                    appointment.setTime(resultSet.getString("Time"));
-                    appointment.setDoctor(resultSet.getString("Doctor"));
+                    appointment.setDoctor(resultSet.getString("DoctorName"));
                     appointment.setHospitalName(resultSet.getString("HospitalName"));
-                    appointment.setPatientName(resultSet.getString("PatientName"));
-                    appointment.setSymptoms(resultSet.getString("Symptoms"));
-
+                    appointment.setCommunity(resultSet.getString("Community"));
+                    appointment.setCity(resultSet.getString("City"));
 
                     System.out.println(" Apppointment Time : "+appointment.getTime());
 
                     model.setRowCount(0);
                     for (Appointment appointmentObj : appointmentList.getAppointment()) {
                         Object[] row = new Object[4];
-                        row[0] = appointmentObj.getPatientName();
-                        row[1] = appointmentObj.getDate();
-                        row[2] = appointmentObj.getTime();
-                        row[3] = appointmentObj.getSymptoms();
+                        row[0] = appointmentObj.getDoctor();
+                        row[1] = appointmentObj.getHospitalName();
+                        row[2] = appointmentObj.getCommunity();
+                        row[3] = appointmentObj.getCity();
                         model.addRow(row);
                     }
 

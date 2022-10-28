@@ -8,10 +8,9 @@ package model;
  *
  * @author arpitarai
  */
-public class Appointment extends Residence {
+public class Appointment extends Residence{
 
     private String patientName;
-    private String doctor;
     private String date;
     private String time;
     private String symptoms;
@@ -31,14 +30,6 @@ public class Appointment extends Residence {
 
     public void setPatientName(String patientName) {
         this.patientName = patientName;
-    }
-
-    public String getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(String doctor) {
-        this.doctor = doctor;
     }
 
     public String getDate() {
