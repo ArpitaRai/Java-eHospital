@@ -383,6 +383,11 @@ public class PatientView extends javax.swing.JFrame {
         });
 
         searchHistory.setText("SEARCH");
+        searchHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchHistoryActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -779,40 +784,20 @@ public class PatientView extends javax.swing.JFrame {
             return;
         }
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-//        Appointment selectedAppointment;  
-//         selectedAppointment= (Appointment) model.getValueAt(selectedRowIndex, 0);
         try {
             try ( Connection connection = JDBCConnection.Connect()) {
                 Statement statement = (Statement) connection.createStatement();
-                String userID1 = userID.getText();
-                String sql = "DELETE FROM JDBC_HospitalSchema.Appointment WHERE userid ='" + userID1 + "'";
+                Appointment appointment= new Appointment();
+                appointment.setUserID( userID.getText());
+                
+                String sql = "DELETE FROM JDBC_HospitalSchema.Appointment WHERE userid ='" + appointment.getUserID()+ "'";
                 System.out.println(sql);
                 statement.executeUpdate(sql);
                 appointmentList = new AppointmentList();
-//                while (resultSet.next()) {
                 JOptionPane.showMessageDialog(this, "Employee Deleted successfully!");
                 model.setRowCount(0);
                userID.setText("");
-//                appointmentTable();
-                
-//
-//                    Appointment appointment = appointmentList.addAppointment();
-//                    appointment.setDate(resultSet.getString("Date"));
-//                    appointment.setTime(resultSet.getString("Time"));
-//                    appointment.setDoctor(resultSet.getString("Doctor"));
-//                    appointment.setHospitalName(resultSet.getString("HospitalName"));
-//                    System.out.println(" Apppointment Time : " + appointment.getTime());
 
-//                    model.setRowCount(0);
-//                    for (Appointment appointmentObj : appointmentList.getAppointment()) {
-//                        Object[] row = new Object[4];
-//                        row[0] = appointmentObj.getDate();
-//                        row[1] = appointmentObj.getTime();
-//                        row[2] = appointmentObj.getDoctor();
-//                        row[3] = appointmentObj.getHospitalName();
-//                        model.addRow(row);
-//                    }
-//                }
             }
             System.out.println("DB Connection Close!!!");
         } catch (HeadlessException | SQLException exception) {
@@ -884,6 +869,47 @@ public class PatientView extends javax.swing.JFrame {
 //        private void filter(String query){
 //        }
     }//GEN-LAST:event_searchHospitalActionPerformed
+
+    private void searchHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchHistoryActionPerformed
+        // TODO add your handling code here:
+        
+        Appointment appointment =new Appointment();;
+        appointment.setUserID( userid.getText());
+      
+        DefaultTableModel model = (DefaultTableModel) appointmentHistory.getModel();
+        try {
+            try ( Connection connection = JDBCConnection.Connect()) {
+                Statement statement = (Statement) connection.createStatement();     
+                appointment.setUserID( userid.getText());
+                String sql = "SELECT * FROM JDBC_HospitalSchema.Appointment where  UserID='" + appointment.getUserID() + "'";
+                System.out.println(sql);
+                ResultSet resultSet = statement.executeQuery(sql);
+                appointmentList = new AppointmentList();
+                while (resultSet.next()) {
+                    Appointment appointment1 = appointmentList.addAppointment();
+                    appointment1.setDoctor(resultSet.getString("Doctor"));
+                    appointment1.setDate(resultSet.getString("Date"));
+                    appointment1.setSymptoms(resultSet.getString("Symptoms"));
+                    appointment1.setHospitalName(resultSet.getString("HospitalName"));
+                    System.out.println(" Apppointment Time : " + appointment.getTime());
+
+                    model.setRowCount(0);
+                    for (Appointment appointmentObj : appointmentList.getAppointment()) {
+                        Object[] row = new Object[4];
+                        row[0] = appointmentObj.getDate();
+                        row[3] = appointmentObj.getSymptoms();
+                        row[1] = appointmentObj.getDoctor();
+                        row[2] = appointmentObj.getHospitalName();
+                        model.addRow(row);
+                    }
+                }
+            }
+            System.out.println("DB Connection Close!!!");
+        } catch (HeadlessException | SQLException exception) {
+            System.out.println(exception);
+            JOptionPane.showMessageDialog(this, exception);
+        }  
+    }//GEN-LAST:event_searchHistoryActionPerformed
 
     private void appointmentTable() {
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
