@@ -8,7 +8,7 @@ package model;
  *
  * @author arpitarai
  */
-public class Patient {
+public class Patient extends Hospital{
     private String gender;
     private String heartRate;
     private String bloodPressure;

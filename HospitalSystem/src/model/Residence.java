@@ -12,16 +12,8 @@ public class Residence extends DoctorDetails{
 
     public String city;
     public String community;
-    public String hospitalName;
     public String houseAddress;
 
-    public String getHospitalName() {
-        return hospitalName;
-    }
-
-    public void setHospitalName(String hospitalName) {
-        this.hospitalName = hospitalName;
-    }
 
     public String getHouseAddress() {
         return houseAddress;

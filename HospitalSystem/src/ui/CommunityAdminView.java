@@ -1,10 +1,20 @@
 package ui;
 
+import hospitalsystem.JDBCConnection;
+import java.awt.HeadlessException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Appointment;
+import model.AppointmentList;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author arpitarai
@@ -14,8 +24,11 @@ public class CommunityAdminView extends javax.swing.JFrame {
     /**
      * Creates new form CommunityView
      */
+    AppointmentList appointmentList;
+
     public CommunityAdminView() {
         initComponents();
+        hospitalTable();
     }
 
     /**
@@ -28,58 +41,28 @@ public class CommunityAdminView extends javax.swing.JFrame {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        updateHospital = new javax.swing.JButton();
+        deleteHospital = new javax.swing.JButton();
+        createHospital = new javax.swing.JButton();
+        cityName = new javax.swing.JTextField();
+        hospitalContact = new javax.swing.JTextField();
+        hospital = new javax.swing.JTextField();
+        communityName = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        hospitalTable = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
-        jPanel1.setForeground(new java.awt.Color(255, 204, 255));
-
-        jButton4.setText("LOGOUT");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(153, 51, 0));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("NORTHEASTERN UNIVERSITY HOSPITAL MANAGEMENT SYSTEM");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 734, Short.MAX_VALUE)
-                .addComponent(jButton4))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addGap(105, 105, 105))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 540, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Patient Details", jPanel1);
 
         jPanel2.setBackground(new java.awt.Color(255, 204, 204));
 
@@ -95,6 +78,58 @@ public class CommunityAdminView extends javax.swing.JFrame {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("NORTHEASTERN UNIVERSITY HOSPITAL MANAGEMENT SYSTEM");
 
+        updateHospital.setText("UPDATE");
+        updateHospital.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateHospitalActionPerformed(evt);
+            }
+        });
+
+        deleteHospital.setText("DELETE");
+        deleteHospital.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteHospitalActionPerformed(evt);
+            }
+        });
+
+        createHospital.setText("CREATE");
+        createHospital.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createHospitalActionPerformed(evt);
+            }
+        });
+
+        hospitalTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Hospital Name", "Community", "City", "Hospital Contact"
+            }
+        ));
+        hospitalTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                hospitalTableMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(hospitalTable);
+
+        jLabel1.setText("Hospital Name");
+
+        jLabel2.setText("Community");
+
+        jLabel4.setText("City");
+
+        jLabel5.setText("Hospital Contact ");
+
+        jLabel12.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        jLabel12.setText("Create Update or Delete Hospital");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -103,9 +138,48 @@ public class CommunityAdminView extends javax.swing.JFrame {
                 .addGap(0, 734, Short.MAX_VALUE)
                 .addComponent(jButton3))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addComponent(jLabel6)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(63, 63, 63)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(45, 45, 45)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(134, 134, 134)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel4)))
+                        .addGap(28, 28, 28)
+                        .addComponent(hospitalContact, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(149, 149, 149)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(createHospital)
+                            .addGap(18, 18, 18)
+                            .addComponent(updateHospital)
+                            .addGap(27, 27, 27)
+                            .addComponent(deleteHospital))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(114, 114, 114)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cityName, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(communityName, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                                    .addComponent(hospital)))))
+                    .addContainerGap(388, Short.MAX_VALUE)))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel12)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,7 +187,38 @@ public class CommunityAdminView extends javax.swing.JFrame {
                 .addComponent(jButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
-                .addGap(0, 537, Short.MAX_VALUE))
+                .addGap(34, 34, 34)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(78, 78, 78)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addGap(26, 26, 26)
+                .addComponent(jLabel4)
+                .addGap(28, 28, 28)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(hospitalContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 116, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(329, 329, 329)
+                    .addComponent(hospital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(17, 17, 17)
+                    .addComponent(communityName, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addComponent(cityName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(89, 89, 89)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(createHospital)
+                        .addComponent(deleteHospital)
+                        .addComponent(updateHospital))
+                    .addContainerGap(50, Short.MAX_VALUE)))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel12)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("Hospital ", jPanel2);
@@ -139,10 +244,10 @@ public class CommunityAdminView extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(0, 734, Short.MAX_VALUE)
                 .addComponent(jButton2))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(142, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(111, 111, 111)
                 .addComponent(jLabel3)
-                .addGap(103, 103, 103))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,43 +259,6 @@ public class CommunityAdminView extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Doctors", jPanel3);
-
-        jPanel4.setBackground(new java.awt.Color(255, 204, 204));
-
-        jButton1.setText("LOGOUT");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(153, 51, 0));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("NORTHEASTERN UNIVERSITY HOSPITAL MANAGEMENT SYSTEM");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(145, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(100, 100, 100))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 534, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Admin Info", jPanel4);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -210,10 +278,6 @@ public class CommunityAdminView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
-
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -222,9 +286,162 @@ public class CommunityAdminView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void updateHospitalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateHospitalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+
+        int selectedRowIndex = hospitalTable.getSelectedRow();
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Select the row you want to UPDATE");
+            return;
+        }
+        DefaultTableModel model = (DefaultTableModel) hospitalTable.getModel();
+        appointmentList = new AppointmentList();
+        Appointment appointment = appointmentList.addAppointment();
+        appointment.setHospitalName(hospital.getText());
+        appointment.setCommunity(communityName.getText());
+        appointment.setCity(cityName.getText());
+        appointment.setHospitalContact(hospitalContact.getText());
+
+        try {
+            try ( Connection connection = JDBCConnection.Connect()) {
+                Statement statement = (Statement) connection.createStatement();
+                String sql = "UPDATE JDBC_HospitalSchema.HospitalDetails SET City = '" + appointment.getCity() + "' ,HospitalName = '" + appointment.getHospitalName()+
+                        "' ,Contact = '" + appointment.getHospitalContact()+ "' where Community ='" + appointment.getCommunity() + "'";
+                System.out.println(sql);
+                statement.executeUpdate(sql);
+                JOptionPane.showMessageDialog(this, "Doctor UPDATED successfully!");
+                model.setRowCount(0);
+                hospital.setText("");
+                communityName.setText("");
+                cityName.setText("");
+                hospitalContact.setText("");
+
+            }
+            System.out.println("DB Connection Close!!!");
+        } catch (HeadlessException | SQLException exception) {
+            System.out.println(exception);
+            JOptionPane.showMessageDialog(this, exception);
+        }
+        hospitalTable();
+    }//GEN-LAST:event_updateHospitalActionPerformed
+
+    private void deleteHospitalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteHospitalActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = hospitalTable.getSelectedRow();
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Select the row you want to DELETE");
+            return;
+        }
+        DefaultTableModel model = (DefaultTableModel) hospitalTable.getModel();
+
+        try {
+            try ( Connection connection = JDBCConnection.Connect()) {
+                Statement statement = (Statement) connection.createStatement();
+                Appointment appointment = new Appointment();
+                appointment.setHospitalName(hospital.getText());
+
+                String sql = "DELETE FROM JDBC_HospitalSchema.HospitalDetails WHERE HospitalName ='" + appointment.getHospitalName()+ "'";
+                System.out.println(sql);
+                statement.executeUpdate(sql);
+                appointmentList = new AppointmentList();
+                JOptionPane.showMessageDialog(this, "Hospital Deleted successfully!");
+                model.setRowCount(0);
+                hospital.setText("");
+                communityName.setText("");
+                cityName.setText("");
+                hospitalContact.setText("");
+
+            }
+            System.out.println("DB Connection Close!!!");
+        } catch (HeadlessException | SQLException exception) {
+            System.out.println(exception);
+            JOptionPane.showMessageDialog(this, exception);
+        }
+        hospitalTable();
+    }//GEN-LAST:event_deleteHospitalActionPerformed
+
+    private void createHospitalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createHospitalActionPerformed
+        // TODO add your handling code here:
+        appointmentList = new AppointmentList();
+        Appointment appointment = appointmentList.addAppointment();
+        appointment.setHospitalName(hospital.getText());
+        appointment.setCommunity(communityName.getText());
+        appointment.setCity(cityName.getText());
+        appointment.setHospitalContact(hospitalContact.getText());
+
+        try {
+            try ( Connection connection = JDBCConnection.Connect()) {
+                Statement statement = (Statement) connection.createStatement();
+
+                String sql = "INSERT INTO JDBC_HospitalSchema.HospitalDetails " + "(HospitalName, Community, City, Contact)"
+                        + "VALUES ('" + appointment.getHospitalName()+ "' ,'" + appointment.getCommunity() + "' , '" + appointment.getCity()+ "' , '" + appointment.getHospitalContact()+ "');";
+
+                statement.executeUpdate(sql);
+                JOptionPane.showMessageDialog(this, "Hospital created Successfully!!");
+                hospital.setText("");
+                communityName.setText("");
+                hospitalContact.setText("");
+                cityName.setText("");
+
+            }
+            System.out.println("DB Connection Close!!!");
+        } catch (HeadlessException | SQLException exception) {
+            System.out.println(exception);
+            JOptionPane.showMessageDialog(this, exception);
+        }
+        hospitalTable();
+    }//GEN-LAST:event_createHospitalActionPerformed
+
+    private void hospitalTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hospitalTableMouseClicked
+        // TODO add your handling code here:
+
+        DefaultTableModel model = (DefaultTableModel) hospitalTable.getModel();
+        int selectedRowIndex = hospitalTable.getSelectedRow();
+        String hospitalName = (String) model.getValueAt(selectedRowIndex, 0);
+        String commmunity = (String) model.getValueAt(selectedRowIndex, 1);
+        String city = (String) model.getValueAt(selectedRowIndex, 2);
+        String contact = (String) model.getValueAt(selectedRowIndex, 3);
+        hospital.setText(hospitalName);
+        communityName.setText(commmunity);
+        cityName.setText(hospitalName);
+        hospitalContact.setText(contact);
+    }//GEN-LAST:event_hospitalTableMouseClicked
+
+    private void hospitalTable() {
+        DefaultTableModel model = (DefaultTableModel) hospitalTable.getModel();
+        try {
+            try ( Connection connection = JDBCConnection.Connect()) {
+                Statement statement = (Statement) connection.createStatement();
+                String sql = "Select * from JDBC_HospitalSchema.HospitalDetails";
+                ResultSet resultSet = statement.executeQuery(sql);
+                appointmentList = new AppointmentList();
+                while (resultSet.next()) {
+                    Appointment appointment = appointmentList.addAppointment();
+                    appointment.setHospitalName(resultSet.getString("HospitalName"));
+                    appointment.setCommunity(resultSet.getString("Community"));
+                    appointment.setCity(resultSet.getString("City"));
+                    appointment.setHospitalContact(resultSet.getString("Contact"));
+                    System.out.println(" Apppointment Time : " + appointment.getTime());
+
+                    model.setRowCount(0);
+                    for (Appointment appointmentObj : appointmentList.getAppointment()) {
+                        Object[] row = new Object[5];
+                        row[0] = appointmentObj.getHospitalName();
+                        row[1] = appointmentObj.getCommunity();
+                        row[2] = appointmentObj.getCity();
+                        row[3] = appointmentObj.getHospitalContact();
+                        model.addRow(row);
+                    }
+
+                }
+
+            }
+            System.out.println("DB Connection Close!!!");
+        } catch (HeadlessException | SQLException exception) {
+            System.out.println(exception);
+            JOptionPane.showMessageDialog(this, exception);
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -263,18 +480,26 @@ public class CommunityAdminView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField cityName;
+    private javax.swing.JTextField communityName;
+    private javax.swing.JButton createHospital;
+    private javax.swing.JButton deleteHospital;
+    private javax.swing.JTextField hospital;
+    private javax.swing.JTextField hospitalContact;
+    private javax.swing.JTable hospitalTable;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JButton updateHospital;
     // End of variables declaration//GEN-END:variables
 }
