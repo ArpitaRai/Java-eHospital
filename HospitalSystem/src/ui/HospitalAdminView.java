@@ -1,10 +1,20 @@
 package ui;
 
+import hospitalsystem.JDBCConnection;
+import java.awt.HeadlessException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Appointment;
+import model.AppointmentList;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author arpitarai
@@ -14,8 +24,13 @@ public class HospitalAdminView extends javax.swing.JFrame {
     /**
      * Creates new form HospitalAdminView
      */
+    AppointmentList appointmentList;
+
     public HospitalAdminView() {
         initComponents();
+        patientTable();
+        doctorTable();
+
     }
 
     /**
@@ -31,9 +46,31 @@ public class HospitalAdminView extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        patientAppointments = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        searchPatientID = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        deletePatient = new javax.swing.JTextField();
+        deletePatientDocView = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        patientAppointments1 = new javax.swing.JTable();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        doctorName = new javax.swing.JTextField();
+        userID = new javax.swing.JTextField();
+        community = new javax.swing.JTextField();
+        community1 = new javax.swing.JTextField();
+        createDoctor = new javax.swing.JButton();
+        update = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        update1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
@@ -57,6 +94,40 @@ public class HospitalAdminView extends javax.swing.JFrame {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("NORTHEASTERN UNIVERSITY HOSPITAL MANAGEMENT SYSTEM");
 
+        patientAppointments.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Patient Name", "Symptoms", "Doctor Appointed", "Community", "Patient Email"
+            }
+        ));
+        patientAppointments.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                patientAppointmentsMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(patientAppointments);
+
+        jLabel1.setText("Search Patient");
+
+        jLabel2.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        jLabel2.setText("Patient Details");
+
+        jLabel3.setText("Delete Patient");
+
+        deletePatientDocView.setText("DELETE");
+        deletePatientDocView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deletePatientDocViewActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -66,8 +137,28 @@ public class HospitalAdminView extends javax.swing.JFrame {
                 .addComponent(jButton4)
                 .addGap(70, 70, 70))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(83, 83, 83)
-                .addComponent(jLabel5)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(83, 83, 83)
+                        .addComponent(jLabel5))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(306, 306, 306)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(135, 135, 135)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(searchPatientID, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+                            .addComponent(deletePatient)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(342, 342, 342)
+                        .addComponent(deletePatientDocView))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(114, 114, 114)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(132, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -76,7 +167,21 @@ public class HospitalAdminView extends javax.swing.JFrame {
                 .addComponent(jButton4)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 607, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(searchPatientID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(52, 52, 52)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(deletePatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addComponent(deletePatientDocView)
+                .addGap(0, 181, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Patients", jPanel1);
@@ -95,6 +200,58 @@ public class HospitalAdminView extends javax.swing.JFrame {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("NORTHEASTERN UNIVERSITY HOSPITAL MANAGEMENT SYSTEM");
 
+        patientAppointments1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Doctor Name", "Hospital Name", "Community", "Doctor Email"
+            }
+        ));
+        patientAppointments1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                patientAppointments1MouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(patientAppointments1);
+
+        jLabel8.setText("Doctor Name");
+
+        jLabel9.setText("Email ID");
+
+        jLabel10.setText("Hospital Name");
+
+        jLabel11.setText("Community");
+
+        createDoctor.setText("CREATE");
+        createDoctor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createDoctorActionPerformed(evt);
+            }
+        });
+
+        update.setText("DELETE");
+        update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        jLabel12.setText("Create Update or Delete Doctor ");
+
+        update1.setText("UPDATE");
+        update1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                update1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -106,6 +263,41 @@ public class HospitalAdminView extends javax.swing.JFrame {
                 .addGap(112, 112, 112)
                 .addComponent(jLabel6)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9))
+                                .addGap(38, 38, 38)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(doctorName, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                                    .addComponent(userID)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(createDoctor)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel11)
+                                        .addComponent(jLabel10)))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(update1)
+                                        .addGap(27, 27, 27)
+                                        .addComponent(update))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(28, 28, 28)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(community, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(community1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                        .addGap(129, 129, 129))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(145, 145, 145))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,7 +305,32 @@ public class HospitalAdminView extends javax.swing.JFrame {
                 .addComponent(jButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
-                .addGap(0, 616, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(userID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel8)
+                    .addComponent(doctorName, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(community1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(community, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(createDoctor)
+                    .addComponent(update)
+                    .addComponent(update1))
+                .addGap(0, 81, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Doctors", jPanel2);
@@ -224,6 +441,246 @@ public class HospitalAdminView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void deletePatientDocViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletePatientDocViewActionPerformed
+        // TODO add your handling code here:
+
+//        int selectedRowIndex = patientAppointÏments.getSelectedRow();
+//        if (selectedRowIndex < 0) {
+//            JOptionPane.showMessageDialog(this, "Select the row you want to DELETE");
+//            return;
+//        }
+        DefaultTableModel model = (DefaultTableModel) patientAppointments.getModel();
+        try {
+            try ( Connection connection = JDBCConnection.Connect()) {
+                Statement statement = (Statement) connection.createStatement();
+                Appointment appointment = new Appointment();
+                appointment.setUserID(deletePatient.getText());
+
+                String sql = "DELETE FROM JDBC_HospitalSchema.Appointment WHERE userid ='" + appointment.getUserID() + "'";
+                System.out.println(sql);
+                statement.executeUpdate(sql);
+                appointmentList = new AppointmentList();
+                JOptionPane.showMessageDialog(this, "Employee Deleted successfully!");
+                model.setRowCount(0);
+                deletePatient.setText("");
+
+            }
+            System.out.println("DB Connection Close!!!");
+        } catch (HeadlessException | SQLException exception) {
+            System.out.println(exception);
+            JOptionPane.showMessageDialog(this, exception);
+        }
+        patientTable();
+    }//GEN-LAST:event_deletePatientDocViewActionPerformed
+
+    private void createDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createDoctorActionPerformed
+        // TODO add your handling code here:
+        appointmentList = new AppointmentList();
+        Appointment appointment = appointmentList.addAppointment();
+        appointment.setUserID(userID.getText());
+        appointment.setDoctor(doctorName.getText());
+        appointment.setHospitalName(community1.getText());
+        appointment.setCommunity(community.getText());
+
+        try {
+            try ( Connection connection = JDBCConnection.Connect()) {
+                Statement statement = (Statement) connection.createStatement();
+
+                String sql = "INSERT INTO JDBC_HospitalSchema.DoctorTable " + "(DoctorUserID, Community, Hospital, DoctorName)"
+                        + "VALUES ('" + appointment.getUserID() + "' ,'" + appointment.getCommunity() + "' , '" + appointment.getHospitalName() + "' , '" + appointment.getDoctor() + "');";
+
+                statement.executeUpdate(sql);
+                JOptionPane.showMessageDialog(this, "Doctor created Successfully!!");
+                userID.setText("");
+                doctorName.setText("");
+                community.setText("");
+                community1.setText("");
+
+            }
+            System.out.println("DB Connection Close!!!");
+        } catch (HeadlessException | SQLException exception) {
+            System.out.println(exception);
+            JOptionPane.showMessageDialog(this, exception);
+        }
+        doctorTable();
+    }//GEN-LAST:event_createDoctorActionPerformed
+
+    private void update1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update1ActionPerformed
+        // TODO add your handling code here:
+
+        int selectedRowIndex = patientAppointments1.getSelectedRow();
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Select the row you want to DELETE");
+            return;
+        }
+        DefaultTableModel model = (DefaultTableModel) patientAppointments1.getModel();
+        appointmentList = new AppointmentList();
+        Appointment appointment = appointmentList.addAppointment();
+        appointment.setUserID(userID.getText());
+        appointment.setDoctor(doctorName.getText());
+        appointment.setHospitalName(community1.getText());
+        appointment.setCommunity(community.getText());
+
+        try {
+            try ( Connection connection = JDBCConnection.Connect()) {
+                Statement statement = (Statement) connection.createStatement();
+                String sql = "UPDATE JDBC_HospitalSchema.DoctorTable SET Community = '" + appointment.getCommunity() 
+                        + "' , Hospital = '"+ appointment.getHospitalName()+ "' ,DoctorName = '"+appointment.getDoctor()+
+                        "' where DoctorUserID ='"+appointment.getUserID()+"'";
+                System.out.println(sql);
+                statement.executeUpdate(sql);
+                JOptionPane.showMessageDialog(this, "Doctor UPDATED successfully!");
+                model.setRowCount(0);
+                userID.setText("");
+                doctorName.setText("");
+                community1.setText("");
+                community.setText("");
+
+            }
+            System.out.println("DB Connection Close!!!");
+        } catch (HeadlessException | SQLException exception) {
+            System.out.println(exception);
+            JOptionPane.showMessageDialog(this, exception);
+        }
+        doctorTable();
+    }//GEN-LAST:event_update1ActionPerformed
+
+    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = patientAppointments1.getSelectedRow();
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Select the row you want to UPDATE");
+            return;
+        }
+        DefaultTableModel model = (DefaultTableModel) patientAppointments1.getModel();
+
+        try {
+            try ( Connection connection = JDBCConnection.Connect()) {
+                Statement statement = (Statement) connection.createStatement();
+                Appointment appointment = new Appointment();
+                appointment.setUserID(userID.getText());
+
+                String sql = "DELETE FROM JDBC_HospitalSchema.DoctorTable WHERE DoctorUserid ='" + appointment.getUserID() + "'";
+                System.out.println(sql);
+                statement.executeUpdate(sql);
+                appointmentList = new AppointmentList();
+                JOptionPane.showMessageDialog(this, "Doctor Deleted successfully!");
+                model.setRowCount(0);
+                userID.setText("");
+                doctorName.setText("");
+                community1.setText("");
+                community.setText("");
+
+            }
+            System.out.println("DB Connection Close!!!");
+        } catch (HeadlessException | SQLException exception) {
+            System.out.println(exception);
+            JOptionPane.showMessageDialog(this, exception);
+        }
+        doctorTable();
+    }//GEN-LAST:event_updateActionPerformed
+
+    private void patientAppointments1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_patientAppointments1MouseClicked
+        // TODO add your handling code here:
+
+        DefaultTableModel model = (DefaultTableModel) patientAppointments1.getModel();
+        int selectedRowIndex = patientAppointments1.getSelectedRow();
+        String docName = (String) model.getValueAt(selectedRowIndex, 0);
+        String userId = (String) model.getValueAt(selectedRowIndex, 3);
+        String hospitalName = (String) model.getValueAt(selectedRowIndex, 1);
+        String communityName = (String) model.getValueAt(selectedRowIndex, 2);
+        userID.setText(userId);
+        doctorName.setText(docName);
+        community1.setText(hospitalName);
+        community.setText(communityName);
+    }//GEN-LAST:event_patientAppointments1MouseClicked
+
+    private void patientAppointmentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_patientAppointmentsMouseClicked
+        // TODO add your handling code here:
+        
+        DefaultTableModel model = (DefaultTableModel) patientAppointments.getModel();
+        int selectedRowIndex = patientAppointments.getSelectedRow();
+        String patientName = (String) model.getValueAt(selectedRowIndex, 4);
+        deletePatient.setText(patientName);
+    }//GEN-LAST:event_patientAppointmentsMouseClicked
+
+    public void patientTable() {
+        DefaultTableModel model = (DefaultTableModel) patientAppointments.getModel();
+        try {
+            try ( Connection connection = JDBCConnection.Connect()) {
+                Statement statement = (Statement) connection.createStatement();
+                String sql = "Select * from JDBC_HospitalSchema.Appointment";
+                ResultSet resultSet = statement.executeQuery(sql);
+                appointmentList = new AppointmentList();
+                while (resultSet.next()) {
+                    Appointment appointment = appointmentList.addAppointment();
+                    appointment.setPatientName(resultSet.getString("PatientName"));
+                    appointment.setSymptoms(resultSet.getString("Symptoms"));
+                    appointment.setDoctor(resultSet.getString("Doctor"));
+                    appointment.setCommunity(resultSet.getString("CommunityName"));
+                    appointment.setUserID(resultSet.getString("UserID"));
+
+                    // appointment.setDate(resultSet.getString("Date"));
+                    System.out.println(" Apppointment Time : " + appointment.getTime());
+
+                    model.setRowCount(0);
+                    for (Appointment appointmentObj : appointmentList.getAppointment()) {
+                        Object[] row = new Object[5];
+                        row[0] = appointmentObj.getPatientName();
+                        row[1] = appointmentObj.getSymptoms();
+                        row[2] = appointmentObj.getDoctor();
+                        row[3] = appointmentObj.getCommunity();
+                        row[4] = appointmentObj.getUserID();
+
+                        model.addRow(row);
+                    }
+
+                }
+
+            }
+            System.out.println("DB Connection Close!!!");
+        } catch (HeadlessException | SQLException exception) {
+            System.out.println(exception);
+            JOptionPane.showMessageDialog(this, exception);
+        }
+    }
+
+    public void doctorTable() {
+        DefaultTableModel model = (DefaultTableModel) patientAppointments1.getModel();
+        try {
+            try ( Connection connection = JDBCConnection.Connect()) {
+                Statement statement = (Statement) connection.createStatement();
+                String sql = "Select * from JDBC_HospitalSchema.DoctorTable";
+                ResultSet resultSet = statement.executeQuery(sql);
+                appointmentList = new AppointmentList();
+                while (resultSet.next()) {
+                    Appointment appointment = appointmentList.addAppointment();
+                    appointment.setHospitalName(resultSet.getString("Hospital"));
+                    appointment.setDoctor(resultSet.getString("DoctorName"));
+                    appointment.setCommunity(resultSet.getString("Community"));
+                    appointment.setUserID(resultSet.getString("DoctorUserID"));
+
+                    model.setRowCount(0);
+                    for (Appointment appointmentObj : appointmentList.getAppointment()) {
+                        Object[] row = new Object[5];
+                        row[0] = appointmentObj.getDoctor();
+                        row[1] = appointmentObj.getHospitalName();
+                        row[2] = appointmentObj.getCommunity();
+                        row[3] = appointmentObj.getUserID();
+
+                        model.addRow(row);
+                    }
+
+                }
+
+            }
+            System.out.println("DB Connection Close!!!");
+        } catch (HeadlessException | SQLException exception) {
+            System.out.println(exception);
+            JOptionPane.showMessageDialog(this, exception);
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -260,17 +717,39 @@ public class HospitalAdminView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField community;
+    private javax.swing.JTextField community1;
+    private javax.swing.JButton createDoctor;
+    private javax.swing.JTextField deletePatient;
+    private javax.swing.JButton deletePatientDocView;
+    private javax.swing.JTextField doctorName;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable patientAppointments;
+    private javax.swing.JTable patientAppointments1;
+    private javax.swing.JTextField searchPatientID;
+    private javax.swing.JButton update;
+    private javax.swing.JButton update1;
+    private javax.swing.JTextField userID;
     // End of variables declaration//GEN-END:variables
 }

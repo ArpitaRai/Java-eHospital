@@ -472,6 +472,7 @@ public class DoctorView extends javax.swing.JFrame {
                 bloodPressure.setText("");
                 prescription.setText("");
                 diagnosis.setText("");
+                patientTable();
 
             }
             System.out.println("DB Connection Close!!!");

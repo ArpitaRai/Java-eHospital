@@ -804,7 +804,8 @@ public class PatientView extends javax.swing.JFrame {
             System.out.println(exception);
             JOptionPane.showMessageDialog(this, exception);
         }
-
+        appointmentTable();
+        
     }//GEN-LAST:event_deleteAppointmentActionPerformed
 
     private void doctor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doctor1ActionPerformed
