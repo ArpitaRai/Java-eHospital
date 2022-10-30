@@ -8,6 +8,7 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import hospitalsystem.JDBCConnection;
 import java.awt.HeadlessException;
+import model.Appointment;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -39,7 +40,7 @@ public class LogInPage extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        password = new javax.swing.JPasswordField();
+        password1 = new javax.swing.JPasswordField();
         userId = new javax.swing.JTextField();
         roleSelected = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
@@ -47,26 +48,30 @@ public class LogInPage extends javax.swing.JFrame {
         loginButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         signUpBtn = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel2.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel2.setBackground(new java.awt.Color(213, 231, 234));
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         jLabel1.setText("Role");
 
-        password.addActionListener(new java.awt.event.ActionListener() {
+        password1.setBackground(new java.awt.Color(231, 239, 246));
+        password1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passwordActionPerformed(evt);
+                password1ActionPerformed(evt);
             }
         });
 
+        userId.setBackground(new java.awt.Color(231, 239, 246));
         userId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 userIdActionPerformed(evt);
             }
         });
 
+        roleSelected.setBackground(new java.awt.Color(231, 239, 246));
         roleSelected.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Patient", "Doctor", "Hospital Admin", "Community Admin", "System Admin" }));
         roleSelected.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,6 +86,7 @@ public class LogInPage extends javax.swing.JFrame {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("NORTHEASTERN UNIVERSITY HOSPITAL MANAGEMENT SYSTEM");
 
+        loginButton.setBackground(new java.awt.Color(135, 206, 250));
         loginButton.setText("SignIn");
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,14 +94,17 @@ public class LogInPage extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("User ID");
+        jLabel2.setText("User Email ID ");
 
-        signUpBtn.setText("New User? Sign Up Here");
+        signUpBtn.setBackground(new java.awt.Color(255, 204, 204));
+        signUpBtn.setText("Sign Up ");
         signUpBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 signUpBtnActionPerformed(evt);
             }
         });
+
+        jLabel4.setText("New User");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -103,9 +112,6 @@ public class LogInPage extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(jLabel5))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -121,19 +127,25 @@ public class LogInPage extends javax.swing.JFrame {
                             .addComponent(loginButton)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(roleSelected, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(password)
+                                .addComponent(password1)
                                 .addComponent(userId))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(signUpBtn)
-                        .addGap(188, 188, 188)))
-                .addContainerGap(72, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(312, 312, 312)
+                        .addComponent(signUpBtn))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(321, 321, 321)
+                        .addComponent(jLabel4))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(82, 82, 82)
+                        .addComponent(jLabel5)))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addContainerGap()
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87)
+                .addGap(128, 128, 128)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(roleSelected, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -144,12 +156,14 @@ public class LogInPage extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(password1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addComponent(loginButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGap(40, 40, 40)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(signUpBtn)
-                .addGap(25, 25, 25))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -181,41 +195,47 @@ public class LogInPage extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
+
+        Appointment appointment = new Appointment();
+        appointment.setUserType((String) roleSelected.getSelectedItem());
+        appointment.setUserID(userId.getText());
+        appointment.setPassword(password1.getText());
+        if (appointment.getUserID() != null && !appointment.getUserID().trim().isEmpty()
+                || appointment.getPassword() != null && !appointment.getPassword().trim().isEmpty()) {
         try {
             try ( Connection connection = JDBCConnection.Connect()) {
                 Statement statement = (Statement) connection.createStatement();
-                String roleSelected1 = (String) roleSelected.getSelectedItem();
-                String userId1 = userId.getText();
-                String password1 = password.getText();
-                String sql = "SELECT * FROM JDBC_HospitalSchema.LogInCredential where UserType ='" + roleSelected1 + "' and UserID ='" + userId1 + "' and Password = '" + password1 + "'";
+                
+                String sql = "SELECT * FROM JDBC_HospitalSchema.LogInCredential where UserType ='" + appointment.getUserType()
+                        + "' and UserID ='" + appointment.getUserID() + "' and Password = '" + appointment.getPassword() + "'";
                 System.out.println(sql);
 
                 ResultSet resultSet = statement.executeQuery(sql);
-               // System.out.println(resultSet.getString("UserID"));
-                if ("Patient".equals(roleSelected1) && resultSet.next()) {
+                // System.out.println(resultSet.getString("UserID"));
+                if ("Patient".equals(appointment.getUserType()) && resultSet.next()) {
                     PatientView patient1 = new PatientView();
                     //System.out.println(resultSet.getString(sql + "UserID"));
                     patient1.show();
-                } else if ("Doctor".equals(roleSelected1) && resultSet.next()) {
+                } else if ("Doctor".equals(appointment.getUserType()) && resultSet.next()) {
                     DoctorView doctor = new DoctorView();
                     System.out.println(resultSet.getString("UserID"));
                     doctor.show();
-                } else if ("Hospital Admin".equals(roleSelected1) && resultSet.next()) {
+                } else if ("Hospital Admin".equals(appointment.getUserType()) && resultSet.next()) {
                     HospitalAdminView hospitalAdminView = new HospitalAdminView();
                     System.out.println(resultSet.getString("UserID"));
                     hospitalAdminView.show();
-                } else if ("Community Admin".equals(roleSelected1) && resultSet.next()) {
+                } else if ("Community Admin".equals(appointment.getUserType()) && resultSet.next()) {
                     CommunityAdminView communityAdminView = new CommunityAdminView();
                     System.out.println(resultSet.getString("UserID"));
                     communityAdminView.show();
-                } else if ("System Admin".equals(roleSelected1) && resultSet.next()) {
+                } else if ("System Admin".equals(appointment.getUserType()) && resultSet.next()) {
                     SystemAdminView systemAdminView = new SystemAdminView();
                     System.out.println(resultSet.getString("UserID"));
                     systemAdminView.show();
                 } else {
                     JOptionPane.showMessageDialog(this, "Incorrect Credentials!");
                     userId.setText("");
-                    password.setText("");
+                    password1.setText("");
 
                 }
             }
@@ -223,12 +243,17 @@ public class LogInPage extends javax.swing.JFrame {
         } catch (HeadlessException | SQLException exception) {
             System.out.println(exception);
             JOptionPane.showMessageDialog(this, exception);
-        }
+        }}
+        else{
+        JOptionPane.showMessageDialog(this, "Please Enter all credentials!");
+                    userId.setText("");
+                    password1.setText("");}
+        
     }//GEN-LAST:event_loginButtonActionPerformed
 
-    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
+    private void password1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_passwordActionPerformed
+    }//GEN-LAST:event_password1ActionPerformed
 
     private void signUpBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpBtnActionPerformed
         // TODO add your handling code here:
@@ -276,10 +301,11 @@ public class LogInPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton loginButton;
-    private javax.swing.JPasswordField password;
+    private javax.swing.JPasswordField password1;
     private javax.swing.JComboBox<String> roleSelected;
     private javax.swing.JButton signUpBtn;
     private javax.swing.JTextField userId;

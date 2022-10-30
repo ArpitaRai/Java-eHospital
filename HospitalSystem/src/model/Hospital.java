@@ -8,7 +8,7 @@ package model;
  *
  * @author arpitarai
  */
-public class Hospital {
+public class Hospital extends LogInCredential{
     private String hospitalName;
     private String hospitalContact;
 

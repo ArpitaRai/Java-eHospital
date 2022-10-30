@@ -13,15 +13,6 @@ public class Appointment extends Residence {
     private String date;
     private String time;
     private String symptoms;
-    private String userID;
-
-    public String getUserID() {
-        return userID;
-    }
-
-    public void setUserID(String userID) {
-        this.userID = userID;
-    }
 
     public String getDate() {
         return date;

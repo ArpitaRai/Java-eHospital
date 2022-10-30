@@ -72,8 +72,8 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
-                              <Component id="searchPatients" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="139" max="-2" attributes="0"/>
+                              <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                               <Component id="patientSearch" min="-2" pref="313" max="-2" attributes="0"/>
                           </Group>
@@ -167,8 +167,8 @@
                       <Component id="jLabel5" min="-2" pref="26" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="searchPatients" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="patientSearch" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="183" max="-2" attributes="0"/>
@@ -241,11 +241,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
               </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="searchPatients">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Search"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="patientSearch">
             </Component>
@@ -394,6 +389,11 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deletePatientActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel13">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Search"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

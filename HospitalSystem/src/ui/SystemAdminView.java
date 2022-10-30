@@ -123,7 +123,7 @@ public class SystemAdminView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(213, 234, 227));
         jPanel1.setForeground(new java.awt.Color(255, 204, 255));
 
         jButton4.setText("LOGOUT");
@@ -323,7 +323,7 @@ public class SystemAdminView extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Patients", jPanel1);
 
-        jPanel2.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel2.setBackground(new java.awt.Color(213, 234, 227));
 
         jButton3.setText("LOGOUT");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -478,7 +478,7 @@ public class SystemAdminView extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Doctors", jPanel2);
 
-        jPanel3.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel3.setBackground(new java.awt.Color(213, 234, 227));
 
         jButton2.setText("LOGOUT");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -626,7 +626,7 @@ public class SystemAdminView extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Hospitals Details", jPanel3);
 
-        jPanel4.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel4.setBackground(new java.awt.Color(213, 234, 227));
 
         jButton1.setText("LOGOUT");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

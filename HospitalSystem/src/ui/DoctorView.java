@@ -44,7 +44,6 @@ public class DoctorView extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
-        searchPatients = new javax.swing.JButton();
         patientSearch = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         patientHistory = new javax.swing.JTable();
@@ -67,6 +66,7 @@ public class DoctorView extends javax.swing.JFrame {
         genderCombo = new javax.swing.JComboBox<>();
         updatePatient = new javax.swing.JButton();
         deletePatient = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
@@ -94,8 +94,6 @@ public class DoctorView extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-
-        searchPatients.setText("Search");
 
         patientHistory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -163,6 +161,8 @@ public class DoctorView extends javax.swing.JFrame {
             }
         });
 
+        jLabel13.setText("Search");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -177,8 +177,8 @@ public class DoctorView extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(116, 116, 116)
-                        .addComponent(searchPatients)
+                        .addGap(139, 139, 139)
+                        .addComponent(jLabel13)
                         .addGap(38, 38, 38)
                         .addComponent(patientSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -247,8 +247,8 @@ public class DoctorView extends javax.swing.JFrame {
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(searchPatients)
-                    .addComponent(patientSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(patientSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -735,6 +735,7 @@ public class DoctorView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -755,7 +756,6 @@ public class DoctorView extends javax.swing.JFrame {
     private javax.swing.JTextField patientSearch;
     private javax.swing.JTextField patientUserID;
     private javax.swing.JTextField prescription;
-    private javax.swing.JButton searchPatients;
     private javax.swing.JButton updatePatient;
     // End of variables declaration//GEN-END:variables
 }
