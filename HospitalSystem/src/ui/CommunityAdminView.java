@@ -59,14 +59,12 @@ public class CommunityAdminView extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(243, 230, 234));
 
+        jButton3.setBackground(new java.awt.Color(176, 224, 230));
         jButton3.setText("LOGOUT");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,27 +77,40 @@ public class CommunityAdminView extends javax.swing.JFrame {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("NORTHEASTERN UNIVERSITY HOSPITAL MANAGEMENT SYSTEM");
 
-        updateHospital.setText("UPDATE");
+        updateHospital.setBackground(new java.awt.Color(135, 206, 250));
+        updateHospital.setText("Update Hospital");
         updateHospital.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateHospitalActionPerformed(evt);
             }
         });
 
-        deleteHospital.setText("DELETE");
+        deleteHospital.setBackground(new java.awt.Color(250, 128, 114));
+        deleteHospital.setText("Delete Hospital");
         deleteHospital.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteHospitalActionPerformed(evt);
             }
         });
 
-        createHospital.setText("CREATE");
+        createHospital.setBackground(new java.awt.Color(135, 206, 250));
+        createHospital.setText("Create Hospital");
         createHospital.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 createHospitalActionPerformed(evt);
             }
         });
 
+        cityName.setBackground(new java.awt.Color(231, 239, 246));
+
+        hospitalContact.setBackground(new java.awt.Color(231, 239, 246));
+
+        hospital.setBackground(new java.awt.Color(231, 239, 246));
+
+        communityName.setBackground(new java.awt.Color(231, 239, 246));
+
+        hospitalTable.setAutoCreateRowSorter(true);
+        hospitalTable.setBackground(new java.awt.Color(231, 239, 246));
         hospitalTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -128,35 +139,37 @@ public class CommunityAdminView extends javax.swing.JFrame {
 
         jLabel5.setText("Hospital Contact ");
 
-        jLabel12.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        jLabel12.setText("Create Update or Delete Hospital");
+        jLabel12.setFont(new java.awt.Font("Helvetica Neue", 3, 14)); // NOI18N
+        jLabel12.setText(" Hospital Details");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 734, Short.MAX_VALUE)
+                .addGap(0, 103, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addGap(59, 59, 59)
                 .addComponent(jButton3))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(45, 45, 45)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(134, 134, 134)
+                        .addGap(116, 116, 116)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel4)))
-                        .addGap(28, 28, 28)
-                        .addComponent(hospitalContact, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel5)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel2)
+                                        .addComponent(jLabel1)
+                                        .addComponent(jLabel4)))
+                                .addGap(28, 28, 28)
+                                .addComponent(hospitalContact, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(281, 281, 281))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(282, 282, 282)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
@@ -175,22 +188,19 @@ public class CommunityAdminView extends javax.swing.JFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(communityName, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
                                     .addComponent(hospital)))))
-                    .addContainerGap(388, Short.MAX_VALUE)))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel12)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addContainerGap(259, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jButton3)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
+                    .addComponent(jLabel6))
+                .addGap(55, 55, 55)
+                .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6)
-                .addGap(34, 34, 34)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(78, 78, 78)
+                .addGap(62, 62, 62)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
@@ -200,7 +210,7 @@ public class CommunityAdminView extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(hospitalContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 116, Short.MAX_VALUE))
+                .addGap(0, 114, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(329, 329, 329)
@@ -215,51 +225,9 @@ public class CommunityAdminView extends javax.swing.JFrame {
                         .addComponent(deleteHospital)
                         .addComponent(updateHospital))
                     .addContainerGap(50, Short.MAX_VALUE)))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel12)
-                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("Hospital ", jPanel2);
-
-        jPanel3.setBackground(new java.awt.Color(243, 230, 234));
-
-        jButton2.setText("LOGOUT");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(153, 51, 0));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("NORTHEASTERN UNIVERSITY HOSPITAL MANAGEMENT SYSTEM");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 734, Short.MAX_VALUE)
-                .addComponent(jButton2))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(111, 111, 111)
-                .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 534, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Doctors", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -287,10 +255,6 @@ public class CommunityAdminView extends javax.swing.JFrame {
         communityAdmin.setVisible(false);
         logInPage.show();
     }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void updateHospitalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateHospitalActionPerformed
         // TODO add your handling code here:
@@ -493,17 +457,14 @@ public class CommunityAdminView extends javax.swing.JFrame {
     private javax.swing.JTextField hospital;
     private javax.swing.JTextField hospitalContact;
     private javax.swing.JTable hospitalTable;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JButton updateHospital;

@@ -61,33 +61,35 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="734" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="103" max="32767" attributes="0"/>
+                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                       <Component id="jButton3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                                      <Component id="jScrollPane3" min="-2" pref="519" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jScrollPane3" min="-2" pref="519" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Component id="hospitalContact" min="-2" pref="91" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="281" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                              <Component id="hospitalContact" min="-2" pref="91" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="282" max="-2" attributes="0"/>
+                              <Component id="jLabel12" min="-2" pref="119" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
@@ -114,14 +116,7 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace pref="388" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="103" rootIndex="2" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace pref="259" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -129,12 +124,15 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                      <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                       <Component id="jScrollPane3" min="-2" pref="163" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
@@ -145,7 +143,7 @@
                           <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="hospitalContact" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="116" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="114" max="32767" attributes="0"/>
                   </Group>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
@@ -164,19 +162,15 @@
                           <EmptySpace pref="50" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="103" rootIndex="2" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JButton" name="jButton3">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="e6" green="e0" red="b0" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="LOGOUT"/>
               </Properties>
               <Events>
@@ -197,7 +191,10 @@
             </Component>
             <Component class="javax.swing.JButton" name="updateHospital">
               <Properties>
-                <Property name="text" type="java.lang.String" value="UPDATE"/>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="fa" green="ce" red="87" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Update Hospital"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateHospitalActionPerformed"/>
@@ -205,7 +202,10 @@
             </Component>
             <Component class="javax.swing.JButton" name="deleteHospital">
               <Properties>
-                <Property name="text" type="java.lang.String" value="DELETE"/>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="72" green="80" red="fa" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Delete Hospital"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteHospitalActionPerformed"/>
@@ -213,19 +213,42 @@
             </Component>
             <Component class="javax.swing.JButton" name="createHospital">
               <Properties>
-                <Property name="text" type="java.lang.String" value="CREATE"/>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="fa" green="ce" red="87" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Create Hospital"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="createHospitalActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="cityName">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="f6" green="ef" red="e7" type="rgb"/>
+                </Property>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="hospitalContact">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="f6" green="ef" red="e7" type="rgb"/>
+                </Property>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="hospital">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="f6" green="ef" red="e7" type="rgb"/>
+                </Property>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="communityName">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="f6" green="ef" red="e7" type="rgb"/>
+                </Property>
+              </Properties>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane3">
               <AuxValues>
@@ -236,6 +259,10 @@
               <SubComponents>
                 <Component class="javax.swing.JTable" name="hospitalTable">
                   <Properties>
+                    <Property name="autoCreateRowSorter" type="boolean" value="true"/>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="f6" green="ef" red="e7" type="rgb"/>
+                    </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="4" rowCount="6">
                         <Column editable="true" title="Hospital Name" type="java.lang.Object"/>
@@ -277,71 +304,9 @@
             <Component class="javax.swing.JLabel" name="jLabel12">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Helvetica Neue" size="14" style="1"/>
+                  <Font name="Helvetica Neue" size="14" style="3"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Create Update or Delete Hospital"/>
-              </Properties>
-            </Component>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JPanel" name="jPanel3">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ea" green="e6" red="f3" type="rgb"/>
-            </Property>
-          </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Doctors">
-                <Property name="tabTitle" type="java.lang.String" value="Doctors"/>
-              </JTabbedPaneConstraints>
-            </Constraint>
-          </Constraints>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="734" max="32767" attributes="0"/>
-                      <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
-                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jLabel3" min="-2" pref="26" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="534" max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Component class="javax.swing.JButton" name="jButton2">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="LOGOUT"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel3">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Helvetica Neue" size="18" style="1"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="33" red="99" type="rgb"/>
-                </Property>
-                <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="NORTHEASTERN UNIVERSITY HOSPITAL MANAGEMENT SYSTEM"/>
+                <Property name="text" type="java.lang.String" value=" Hospital Details"/>
               </Properties>
             </Component>
           </SubComponents>
