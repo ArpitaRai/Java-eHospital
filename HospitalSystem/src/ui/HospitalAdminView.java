@@ -9,7 +9,7 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Appointment;
-import model.AppointmentList;
+import model.ListDirectory;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -24,7 +24,7 @@ public class HospitalAdminView extends javax.swing.JFrame {
     /**
      * Creates new form HospitalAdminView
      */
-    AppointmentList appointmentList;
+    ListDirectory appointmentList;
 
     public HospitalAdminView() {
         initComponents();
@@ -459,7 +459,7 @@ public class HospitalAdminView extends javax.swing.JFrame {
                 String sql = "DELETE FROM JDBC_HospitalSchema.Appointment WHERE userid ='" + appointment.getUserID() + "'";
                 System.out.println(sql);
                 statement.executeUpdate(sql);
-                appointmentList = new AppointmentList();
+                appointmentList = new ListDirectory();
                 JOptionPane.showMessageDialog(this, "Employee Deleted successfully!");
                 model.setRowCount(0);
                 deletePatient.setText("");
@@ -475,7 +475,7 @@ public class HospitalAdminView extends javax.swing.JFrame {
 
     private void createDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createDoctorActionPerformed
         // TODO add your handling code here:
-        appointmentList = new AppointmentList();
+        appointmentList = new ListDirectory();
         Appointment appointment = appointmentList.addAppointment();
         appointment.setUserID(userID.getText());
         appointment.setDoctor(doctorName.getText());
@@ -510,11 +510,11 @@ public class HospitalAdminView extends javax.swing.JFrame {
 
         int selectedRowIndex = patientAppointments1.getSelectedRow();
         if (selectedRowIndex < 0) {
-            JOptionPane.showMessageDialog(this, "Select the row you want to DELETE");
+            JOptionPane.showMessageDialog(this, "Select the row you want to UPDATE");
             return;
         }
         DefaultTableModel model = (DefaultTableModel) patientAppointments1.getModel();
-        appointmentList = new AppointmentList();
+        appointmentList = new ListDirectory();
         Appointment appointment = appointmentList.addAppointment();
         appointment.setUserID(userID.getText());
         appointment.setDoctor(doctorName.getText());
@@ -549,7 +549,7 @@ public class HospitalAdminView extends javax.swing.JFrame {
         // TODO add your handling code here:
         int selectedRowIndex = patientAppointments1.getSelectedRow();
         if (selectedRowIndex < 0) {
-            JOptionPane.showMessageDialog(this, "Select the row you want to UPDATE");
+            JOptionPane.showMessageDialog(this, "Select the row you want to DELETE");
             return;
         }
         DefaultTableModel model = (DefaultTableModel) patientAppointments1.getModel();
@@ -563,7 +563,7 @@ public class HospitalAdminView extends javax.swing.JFrame {
                 String sql = "DELETE FROM JDBC_HospitalSchema.DoctorTable WHERE DoctorUserid ='" + appointment.getUserID() + "'";
                 System.out.println(sql);
                 statement.executeUpdate(sql);
-                appointmentList = new AppointmentList();
+                appointmentList = new ListDirectory();
                 JOptionPane.showMessageDialog(this, "Doctor Deleted successfully!");
                 model.setRowCount(0);
                 userID.setText("");
@@ -611,7 +611,7 @@ public class HospitalAdminView extends javax.swing.JFrame {
                 Statement statement = (Statement) connection.createStatement();
                 String sql = "Select * from JDBC_HospitalSchema.Appointment";
                 ResultSet resultSet = statement.executeQuery(sql);
-                appointmentList = new AppointmentList();
+                appointmentList = new ListDirectory();
                 while (resultSet.next()) {
                     Appointment appointment = appointmentList.addAppointment();
                     appointment.setPatientName(resultSet.getString("PatientName"));
@@ -652,7 +652,7 @@ public class HospitalAdminView extends javax.swing.JFrame {
                 Statement statement = (Statement) connection.createStatement();
                 String sql = "Select * from JDBC_HospitalSchema.DoctorTable";
                 ResultSet resultSet = statement.executeQuery(sql);
-                appointmentList = new AppointmentList();
+                appointmentList = new ListDirectory();
                 while (resultSet.next()) {
                     Appointment appointment = appointmentList.addAppointment();
                     appointment.setHospitalName(resultSet.getString("Hospital"));

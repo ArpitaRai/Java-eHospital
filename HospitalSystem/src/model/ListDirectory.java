@@ -10,10 +10,10 @@ import java.util.ArrayList;
  *
  * @author arpitarai
  */
-public class AppointmentList extends DoctorDetails{
+public class ListDirectory extends DoctorDetails{
     private ArrayList <Appointment> appointment;
         
-    public AppointmentList(){
+    public ListDirectory(){
         this.appointment= new ArrayList<Appointment>();
     }
 

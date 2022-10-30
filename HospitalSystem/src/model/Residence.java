@@ -13,6 +13,15 @@ public class Residence extends DoctorDetails{
     public String city;
     public String community;
     public String houseAddress;
+    public String zip;
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
 
 
     public String getHouseAddress() {

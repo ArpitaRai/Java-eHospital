@@ -9,7 +9,7 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Appointment;
-import model.AppointmentList;
+import model.ListDirectory;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -24,7 +24,7 @@ public class CommunityAdminView extends javax.swing.JFrame {
     /**
      * Creates new form CommunityView
      */
-    AppointmentList appointmentList;
+    ListDirectory appointmentList;
 
     public CommunityAdminView() {
         initComponents();
@@ -295,7 +295,7 @@ public class CommunityAdminView extends javax.swing.JFrame {
             return;
         }
         DefaultTableModel model = (DefaultTableModel) hospitalTable.getModel();
-        appointmentList = new AppointmentList();
+        appointmentList = new ListDirectory();
         Appointment appointment = appointmentList.addAppointment();
         appointment.setHospitalName(hospital.getText());
         appointment.setCommunity(communityName.getText());
@@ -343,7 +343,7 @@ public class CommunityAdminView extends javax.swing.JFrame {
                 String sql = "DELETE FROM JDBC_HospitalSchema.HospitalDetails WHERE HospitalName ='" + appointment.getHospitalName()+ "'";
                 System.out.println(sql);
                 statement.executeUpdate(sql);
-                appointmentList = new AppointmentList();
+                appointmentList = new ListDirectory();
                 JOptionPane.showMessageDialog(this, "Hospital Deleted successfully!");
                 model.setRowCount(0);
                 hospital.setText("");
@@ -362,7 +362,7 @@ public class CommunityAdminView extends javax.swing.JFrame {
 
     private void createHospitalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createHospitalActionPerformed
         // TODO add your handling code here:
-        appointmentList = new AppointmentList();
+        appointmentList = new ListDirectory();
         Appointment appointment = appointmentList.addAppointment();
         appointment.setHospitalName(hospital.getText());
         appointment.setCommunity(communityName.getText());
@@ -407,14 +407,14 @@ public class CommunityAdminView extends javax.swing.JFrame {
         hospitalContact.setText(contact);
     }//GEN-LAST:event_hospitalTableMouseClicked
 
-    private void hospitalTable() {
+    public void hospitalTable() {
         DefaultTableModel model = (DefaultTableModel) hospitalTable.getModel();
         try {
             try ( Connection connection = JDBCConnection.Connect()) {
                 Statement statement = (Statement) connection.createStatement();
                 String sql = "Select * from JDBC_HospitalSchema.HospitalDetails";
                 ResultSet resultSet = statement.executeQuery(sql);
-                appointmentList = new AppointmentList();
+                appointmentList = new ListDirectory();
                 while (resultSet.next()) {
                     Appointment appointment = appointmentList.addAppointment();
                     appointment.setHospitalName(resultSet.getString("HospitalName"));

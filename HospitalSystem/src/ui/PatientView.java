@@ -9,7 +9,7 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Appointment;
-import model.AppointmentList;
+import model.ListDirectory;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -24,11 +24,10 @@ public class PatientView extends javax.swing.JFrame {
     /**
      * Creates new form Patient1
      */
-    AppointmentList appointmentList;
+    ListDirectory appointmentList;
 
     public PatientView() {
         initComponents();
-//        appointmentTable();
         doctorHospitalList();
     }
 
@@ -109,6 +108,8 @@ public class PatientView extends javax.swing.JFrame {
         updatePatient = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel2.setBackground(new java.awt.Color(255, 204, 204));
 
         jLabel5.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(153, 51, 0));
@@ -348,6 +349,8 @@ public class PatientView extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Home", jPanel2);
+
+        jPanel3.setBackground(new java.awt.Color(255, 204, 204));
 
         jLabel7.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(153, 51, 0));
@@ -705,7 +708,7 @@ public class PatientView extends javax.swing.JFrame {
                 Statement statement = (Statement) connection.createStatement();
                 String sql = "SELECT * FROM JDBC_HospitalSchema.HospitalDetails;";
                 ResultSet resultSet = statement.executeQuery(sql);
-                appointmentList = new AppointmentList();
+                appointmentList = new ListDirectory();
                 while (resultSet.next()) {
                     Appointment appointment = appointmentList.addAppointment();
                     appointment.setDoctor(resultSet.getString("DoctorName"));
@@ -744,7 +747,7 @@ public class PatientView extends javax.swing.JFrame {
                 String sql = "Select * from JDBC_HospitalSchema.Appointment where UserID ='" + userID1 + "'";
                 System.out.println(sql);
                 ResultSet resultSet = statement.executeQuery(sql);
-                appointmentList = new AppointmentList();
+                appointmentList = new ListDirectory();
                 while (resultSet.next()) {
                     Appointment appointment = appointmentList.addAppointment();
                     appointment.setDate(resultSet.getString("Date"));
@@ -793,7 +796,7 @@ public class PatientView extends javax.swing.JFrame {
                 String sql = "DELETE FROM JDBC_HospitalSchema.Appointment WHERE userid ='" + appointment.getUserID()+ "'";
                 System.out.println(sql);
                 statement.executeUpdate(sql);
-                appointmentList = new AppointmentList();
+                appointmentList = new ListDirectory();
                 JOptionPane.showMessageDialog(this, "Employee Deleted successfully!");
                 model.setRowCount(0);
                userID.setText("");
@@ -814,7 +817,7 @@ public class PatientView extends javax.swing.JFrame {
 
     private void bookAppointment1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookAppointment1ActionPerformed
         // TODO add your handling code here:
-        appointmentList = new AppointmentList();
+        appointmentList = new ListDirectory();
         Appointment appointment = appointmentList.addAppointment();
         appointment.setPatientName(patientName.getText());
         appointment.setDoctor(doctor1.getText());
@@ -885,7 +888,7 @@ public class PatientView extends javax.swing.JFrame {
                 String sql = "SELECT * FROM JDBC_HospitalSchema.Appointment where  UserID='" + appointment.getUserID() + "'";
                 System.out.println(sql);
                 ResultSet resultSet = statement.executeQuery(sql);
-                appointmentList = new AppointmentList();
+                appointmentList = new ListDirectory();
                 while (resultSet.next()) {
                     Appointment appointment1 = appointmentList.addAppointment();
                     appointment1.setDoctor(resultSet.getString("Doctor"));
@@ -919,7 +922,7 @@ public class PatientView extends javax.swing.JFrame {
                 Statement statement = (Statement) connection.createStatement();
                 String sql = "Select * from JDBC_HospitalSchema.Appointment";
                 ResultSet resultSet = statement.executeQuery(sql);
-                appointmentList = new AppointmentList();
+                appointmentList = new ListDirectory();
                 while (resultSet.next()) {
                     Appointment appointment = appointmentList.addAppointment();
                     appointment.setDate(resultSet.getString("Date"));
@@ -956,7 +959,7 @@ public class PatientView extends javax.swing.JFrame {
                 Statement statement = (Statement) connection.createStatement();
                 String sql = "SELECT * FROM JDBC_HospitalSchema.HospitalDetails;";
                 ResultSet resultSet = statement.executeQuery(sql);
-                appointmentList = new AppointmentList();
+                appointmentList = new ListDirectory();
                 while (resultSet.next()) {
                     Appointment appointment = appointmentList.addAppointment();
                     appointment.setDoctor(resultSet.getString("DoctorName"));
