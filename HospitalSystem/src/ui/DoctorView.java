@@ -446,10 +446,17 @@ public class DoctorView extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        LogInPage logInPage = new LogInPage();
+        logInPage.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+
+        LogInPage logInPage = new LogInPage();
+        logInPage.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void appointmentViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appointmentViewActionPerformed
@@ -531,7 +538,7 @@ public class DoctorView extends javax.swing.JFrame {
                 String sql = "INSERT INTO JDBC_HospitalSchema.PatientTable " + "(Date, PatientName, Gender, PatientUserID, HeartRate, BP, Diagnosis, Prescription)"
                         + "VALUES ('" + appointment.getDate() + "' , '" + appointment.getPatientName() + "' , '" + appointment.getGender() + "' , '" + appointment.getUserID() + "', '"
                         + appointment.getHeartRate() + "', '" + appointment.getBloodPressure() + "', '" + appointment.getDiagnosis() + "', '" + appointment.getPrescription() + "');";
-                
+
                 System.out.println(sql);
                 statement.executeUpdate(sql);
                 JOptionPane.showMessageDialog(this, "Patient created secccessfully!!");
@@ -597,12 +604,12 @@ public class DoctorView extends javax.swing.JFrame {
 
                 String sql = "DELETE FROM JDBC_HospitalSchema.PatientTable WHERE PatientUserID ='" + appointment.getUserID() + "'";
                 System.out.println(sql);
-               int a=  statement.executeUpdate(sql);
+                int a = statement.executeUpdate(sql);
                 appointmentList = new ListDirectory();
-                if(0==a)
-                { JOptionPane.showMessageDialog(this, "Deletion Failed, enter the correct details!");
-                return;
-                    }
+                if (0 == a) {
+                    JOptionPane.showMessageDialog(this, "Deletion Failed, enter the correct details!");
+                    return;
+                }
                 JOptionPane.showMessageDialog(this, "Patient Deleted successfully!");
                 model.setRowCount(0);
                 patientName1.setText("");
@@ -651,12 +658,12 @@ public class DoctorView extends javax.swing.JFrame {
                         + "' , Prescription = '" + appointment.getPrescription() + "' , Date = '" + appointment.getDate()
                         + "' where PatientUserID ='" + appointment.getUserID() + "'";
                 System.out.println(sql);
-                int a= statement.executeUpdate(sql);
-                System.out.println(sql);  
-                if(0==a)
-                { JOptionPane.showMessageDialog(this, "Updation Failed, enter the correct details!");
-                return;
-                    }
+                int a = statement.executeUpdate(sql);
+                System.out.println(sql);
+                if (0 == a) {
+                    JOptionPane.showMessageDialog(this, "Updation Failed, enter the correct details!");
+                    return;
+                }
                 JOptionPane.showMessageDialog(this, "Doctor UPDATED successfully!");
                 model.setRowCount(0);
                 patientName1.setText("");
@@ -719,7 +726,7 @@ public class DoctorView extends javax.swing.JFrame {
                         row[2] = appointmentObj.getBloodPressure();
                         row[3] = appointmentObj.getHeartRate();
                         row[4] = appointmentObj.getDiagnosis();
-                        row[5] = appointmentObj.getDate();       
+                        row[5] = appointmentObj.getDate();
                         row[6] = appointmentObj.getPrescription();
                         model.addRow(row);
                     }

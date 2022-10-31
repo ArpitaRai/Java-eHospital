@@ -252,11 +252,10 @@ public class CommunityAdminView extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-
         LogInPage logInPage = new LogInPage();
-        CommunityAdminView communityAdmin = new CommunityAdminView();
-        communityAdmin.setVisible(false);
-        logInPage.show();
+        logInPage.setVisible(true);
+        this.dispose();
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void updateHospitalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateHospitalActionPerformed
@@ -319,7 +318,7 @@ public class CommunityAdminView extends javax.swing.JFrame {
 
                 String sql = "DELETE FROM JDBC_HospitalSchema.HospitalDetails WHERE HospitalName ='" + appointment.getHospitalName() + "'";
                 System.out.println(sql);
-                int a= statement.executeUpdate(sql);
+                int a = statement.executeUpdate(sql);
                 if (a == 0) {
                     JOptionPane.showMessageDialog(this, "Deletion failed!");
                     return;

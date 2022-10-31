@@ -28,7 +28,7 @@ public class PatientView extends javax.swing.JFrame {
      * Creates new form Patient1
      */
     ListDirectory appointmentList;
-    
+
     public PatientView() {
         initComponents();
         doctorHospitalList();
@@ -501,10 +501,16 @@ public class PatientView extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        LogInPage logInPage = new LogInPage();
+        logInPage.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        LogInPage logInPage = new LogInPage();
+        logInPage.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void bookAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookAppointmentActionPerformed
@@ -531,7 +537,7 @@ public class PatientView extends javax.swing.JFrame {
                     appointment.setDoctor(resultSet.getString("Doctor"));
                     appointment.setHospitalName(resultSet.getString("HospitalName"));
                     System.out.println(" Apppointment Time : " + appointment.getTime());
-                    
+
                     model.setRowCount(0);
                     for (Appointment appointmentObj : appointmentList.getAppointment()) {
                         Object[] row = new Object[4];
@@ -547,7 +553,7 @@ public class PatientView extends javax.swing.JFrame {
                     return;
                 }
             }
-            
+
             System.out.println("DB Connection Close!!!");
         } catch (HeadlessException | SQLException exception) {
             System.out.println(exception);
@@ -573,7 +579,7 @@ public class PatientView extends javax.swing.JFrame {
                 Statement statement = (Statement) connection.createStatement();
                 Appointment appointment = new Appointment();
                 appointment.setUserID(userID.getText());
-                
+
                 String sql = "DELETE FROM JDBC_HospitalSchema.Appointment WHERE userid ='" + appointment.getUserID() + "'";
                 System.out.println(sql);
                 int a = statement.executeUpdate(sql);
@@ -585,7 +591,7 @@ public class PatientView extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Appointment Deleted successfully!");
                 model.setRowCount(0);
                 userID.setText("");
-                
+
             }
             System.out.println("DB Connection Close!!!");
         } catch (HeadlessException | SQLException exception) {
@@ -612,14 +618,14 @@ public class PatientView extends javax.swing.JFrame {
         appointment.setUserID(userID.getText());
         appointment.setCity(city.getText());
         appointment.setSymptoms(symptoms.getText());
-        
-        if (!Validations.isValidDate(appointment.getDate())|| !Validations.isTimeValid(appointment.getTime())) {
+
+        if (!Validations.isValidDate(appointment.getDate()) || !Validations.isTimeValid(appointment.getTime())) {
             JOptionPane.showMessageDialog(this, "Incorrect Date or Time Format!");
             date.setText("");
             time.setText("");
             return;
         }
-        
+
         if (appointment.getUserID() == null || appointment.getUserID().trim().isEmpty() || "".equals(appointment.getUserID())
                 || appointment.getPatientName() == null || appointment.getPatientName().trim().isEmpty() || "".equals(appointment.getPatientName())
                 || appointment.getDoctor() == null || appointment.getDoctor().trim().isEmpty() || "".equals(appointment.getDoctor())
@@ -632,15 +638,15 @@ public class PatientView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please Enter all credentials!");
             return;
         }
-        
+
         try {
             try ( Connection connection = JDBCConnection.Connect()) {
                 Statement statement = (Statement) connection.createStatement();
-                
+
                 String sql = "INSERT INTO JDBC_HospitalSchema.Appointment " + "(UserID,PatientName, Doctor, HospitalName,CommunityName,Date,Time,CityName, Symptoms)"
                         + "VALUES ('" + appointment.getUserID() + "' ,'" + appointment.getPatientName() + "' , '" + appointment.getDoctor() + "' , '" + appointment.getHospitalName() + "', '"
                         + appointment.getCommunity() + "', '" + appointment.getDate() + "', '" + appointment.getTime() + "', '" + appointment.getCity() + "', '" + appointment.getSymptoms() + "');";
-                
+
                 statement.executeUpdate(sql);
                 JOptionPane.showMessageDialog(this, "Appointment created secccessfully!!");
                 patientName.setText("");
@@ -652,7 +658,7 @@ public class PatientView extends javax.swing.JFrame {
                 symptoms.setText("");
                 city.setText("");
                 userID.setText("");
-                
+
             }
             System.out.println("DB Connection Close!!!");
         } catch (HeadlessException | SQLException exception) {
@@ -668,7 +674,7 @@ public class PatientView extends javax.swing.JFrame {
             city.setText("");
             userID.setText("");
         }
-        
+
 
     }//GEN-LAST:event_bookAppointment1ActionPerformed
 
@@ -692,7 +698,7 @@ public class PatientView extends javax.swing.JFrame {
 
         Appointment appointment = new Appointment();;
         appointment.setUserID(userid.getText());
-        
+
         DefaultTableModel model = (DefaultTableModel) appointmentHistory.getModel();
         try {
             try ( Connection connection = JDBCConnection.Connect()) {
@@ -709,7 +715,7 @@ public class PatientView extends javax.swing.JFrame {
                     appointment1.setSymptoms(resultSet.getString("Symptoms"));
                     appointment1.setHospitalName(resultSet.getString("HospitalName"));
                     System.out.println(" Apppointment Time : " + appointment.getTime());
-                    
+
                     model.setRowCount(0);
                     for (Appointment appointmentObj : appointmentList.getAppointment()) {
                         Object[] row = new Object[4];
@@ -759,7 +765,7 @@ public class PatientView extends javax.swing.JFrame {
         city.setText(city1);
 
     }//GEN-LAST:event_jTable1MouseClicked
-    
+
     private void appointmentTable() {
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
         try {
@@ -775,7 +781,7 @@ public class PatientView extends javax.swing.JFrame {
                     appointment.setDoctor(resultSet.getString("Doctor"));
                     appointment.setHospitalName(resultSet.getString("HospitalName"));
                     System.out.println(" Apppointment Time : " + appointment.getTime());
-                    
+
                     model.setRowCount(0);
                     for (Appointment appointmentObj : appointmentList.getAppointment()) {
                         Object[] row = new Object[4];
@@ -785,9 +791,9 @@ public class PatientView extends javax.swing.JFrame {
                         row[3] = appointmentObj.getHospitalName();
                         model.addRow(row);
                     }
-                    
+
                 }
-                
+
             }
             System.out.println("DB Connection Close!!!");
         } catch (HeadlessException | SQLException exception) {
@@ -795,10 +801,10 @@ public class PatientView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, exception);
         }
     }
-    
+
     private void doctorHospitalList() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        
+
         try {
             try ( Connection connection = JDBCConnection.Connect()) {
                 Statement statement = (Statement) connection.createStatement();
@@ -811,7 +817,7 @@ public class PatientView extends javax.swing.JFrame {
                     appointment.setHospitalName(resultSet.getString("HospitalName"));
                     appointment.setCommunity(resultSet.getString("Community"));
                     appointment.setCity(resultSet.getString("City"));
-                    
+
                     model.setRowCount(0);
                     for (Appointment appointmentObj : appointmentList.getAppointment()) {
                         Object[] row = new Object[4];
@@ -821,7 +827,7 @@ public class PatientView extends javax.swing.JFrame {
                         row[3] = appointmentObj.getCity();
                         model.addRow(row);
                     }
-                    
+
                 }
             }
             System.out.println("DB Connection Close!!!");

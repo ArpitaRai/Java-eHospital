@@ -872,24 +872,36 @@ public class SystemAdminView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        LogInPage logInPage = new LogInPage();
+        logInPage.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        LogInPage logInPage = new LogInPage();
+        logInPage.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        LogInPage logInPage = new LogInPage();
+        logInPage.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        LogInPage logInPage = new LogInPage();
+        logInPage.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void updateHospitalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateHospitalActionPerformed
         // TODO add your handling code here:
 
-             int selectedRowIndex = hospitalTable.getSelectedRow();
+        int selectedRowIndex = hospitalTable.getSelectedRow();
         if (selectedRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Select the row you want to UPDATE");
             return;
@@ -946,7 +958,7 @@ public class SystemAdminView extends javax.swing.JFrame {
 
                 String sql = "DELETE FROM JDBC_HospitalSchema.HospitalDetails WHERE HospitalName ='" + appointment.getHospitalName() + "'";
                 System.out.println(sql);
-                int a= statement.executeUpdate(sql);
+                int a = statement.executeUpdate(sql);
                 if (a == 0) {
                     JOptionPane.showMessageDialog(this, "Deletion failed!");
                     return;
@@ -970,7 +982,7 @@ public class SystemAdminView extends javax.swing.JFrame {
 
     private void createHospitalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createHospitalActionPerformed
         // TODO add your handling code here:
-          appointmentList = new ListDirectory();
+        appointmentList = new ListDirectory();
         Appointment appointment = appointmentList.addAppointment();
         appointment.setHospitalName(hospital.getText());
         appointment.setCommunity(communityName.getText());
