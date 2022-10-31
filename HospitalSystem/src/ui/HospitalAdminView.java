@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import model.Appointment;
 import model.ListDirectory;
 
@@ -114,6 +116,11 @@ public class HospitalAdminView extends javax.swing.JFrame {
         jLabel1.setText("Search Patient");
 
         searchPatientID.setBackground(new java.awt.Color(231, 239, 246));
+        searchPatientID.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchPatientIDKeyReleased(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Helvetica Neue", 3, 14)); // NOI18N
         jLabel2.setText("Patient Details");
@@ -156,7 +163,7 @@ public class HospitalAdminView extends javax.swing.JFrame {
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 96, Short.MAX_VALUE)
+                .addGap(0, 120, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addGap(36, 36, 36)
                 .addComponent(jButton4))
@@ -181,7 +188,7 @@ public class HospitalAdminView extends javax.swing.JFrame {
                     .addComponent(deletePatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addComponent(deletePatientDocView)
-                .addGap(0, 177, Short.MAX_VALUE))
+                .addGap(0, 98, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Patients", jPanel1);
@@ -270,46 +277,45 @@ public class HospitalAdminView extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 96, Short.MAX_VALUE)
+                .addGap(0, 120, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addGap(36, 36, 36)
                 .addComponent(jButton3))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(createDoctor)
-                                .addGap(18, 18, 18)
-                                .addComponent(update1)
-                                .addGap(27, 27, 27)
-                                .addComponent(update))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel8)
-                                                .addComponent(jLabel9))
-                                            .addGap(38, 38, 38))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                            .addComponent(jLabel10)
-                                            .addGap(28, 28, 28)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(createDoctor)
+                        .addGap(18, 18, 18)
+                        .addComponent(update1)
+                        .addGap(18, 18, 18)
+                        .addComponent(update)
+                        .addContainerGap())
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(143, 143, 143))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel11)
+                                    .addGap(38, 38, 38)
+                                    .addComponent(community, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel11)
-                                        .addGap(48, 48, 48)))
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(community, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(community1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(doctorName, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-                                        .addComponent(userID)))))
-                        .addGap(129, 129, 129))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(143, 143, 143))))
+                                        .addComponent(jLabel9)
+                                        .addGap(58, 58, 58)
+                                        .addComponent(userID, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(doctorName, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel10)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(community1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(129, 129, 129)))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -321,28 +327,28 @@ public class HospitalAdminView extends javax.swing.JFrame {
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(101, 101, 101)
+                .addGap(44, 44, 44)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(userID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel8)
-                    .addComponent(doctorName, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(doctorName, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(21, 21, 21)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(community1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(community, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
+                    .addComponent(community, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
+                .addGap(60, 60, 60)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(createDoctor)
-                    .addComponent(update)
-                    .addComponent(update1))
-                .addGap(0, 79, Short.MAX_VALUE))
+                    .addComponent(update1)
+                    .addComponent(update))
+                .addGap(0, 29, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Doctors", jPanel2);
@@ -377,11 +383,6 @@ public class HospitalAdminView extends javax.swing.JFrame {
     private void deletePatientDocViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletePatientDocViewActionPerformed
         // TODO add your handling code here:
 
-//        int selectedRowIndex = patientAppointÏments.getSelectedRow();
-//        if (selectedRowIndex < 0) {
-//            JOptionPane.showMessageDialog(this, "Select the row you want to DELETE");
-//            return;
-//        }
         DefaultTableModel model = (DefaultTableModel) patientAppointments.getModel();
         try {
             try ( Connection connection = JDBCConnection.Connect()) {
@@ -391,7 +392,11 @@ public class HospitalAdminView extends javax.swing.JFrame {
 
                 String sql = "DELETE FROM JDBC_HospitalSchema.Appointment WHERE userid ='" + appointment.getUserID() + "'";
                 System.out.println(sql);
-                statement.executeUpdate(sql);
+                int a = statement.executeUpdate(sql);
+                if (0 == a) {
+                    JOptionPane.showMessageDialog(this, "Deletion Failed, enter the correct details!");
+                    return;
+                }
                 appointmentList = new ListDirectory();
                 JOptionPane.showMessageDialog(this, "Employee Deleted successfully!");
                 model.setRowCount(0);
@@ -415,6 +420,14 @@ public class HospitalAdminView extends javax.swing.JFrame {
         appointment.setHospitalName(community1.getText());
         appointment.setCommunity(community.getText());
 
+        if (appointment.getUserID() == null || appointment.getUserID().trim().isEmpty() || "".equals(appointment.getUserID())
+                || appointment.getDoctor() == null || appointment.getDoctor().trim().isEmpty() || "".equals(appointment.getDoctor())
+                || appointment.getHospitalName() == null || appointment.getHospitalName().trim().isEmpty() || "".equals(appointment.getHospitalName())
+                || appointment.getCommunity() == null || appointment.getCommunity().trim().isEmpty() || "".equals(appointment.getCommunity())) {
+            JOptionPane.showMessageDialog(this, "Please Enter all credentials!");
+            return;
+        }
+
         try {
             try ( Connection connection = JDBCConnection.Connect()) {
                 Statement statement = (Statement) connection.createStatement();
@@ -433,7 +446,8 @@ public class HospitalAdminView extends javax.swing.JFrame {
             System.out.println("DB Connection Close!!!");
         } catch (HeadlessException | SQLException exception) {
             System.out.println(exception);
-            JOptionPane.showMessageDialog(this, exception);
+            JOptionPane.showMessageDialog(this, "Please Enter the registerd Email ID of Doctor");
+            userID.setText("");
         }
         doctorTable();
     }//GEN-LAST:event_createDoctorActionPerformed
@@ -457,11 +471,16 @@ public class HospitalAdminView extends javax.swing.JFrame {
         try {
             try ( Connection connection = JDBCConnection.Connect()) {
                 Statement statement = (Statement) connection.createStatement();
-                String sql = "UPDATE JDBC_HospitalSchema.DoctorTable SET Community = '" + appointment.getCommunity() 
-                        + "' , Hospital = '"+ appointment.getHospitalName()+ "' ,DoctorName = '"+appointment.getDoctor()+
-                        "' where DoctorUserID ='"+appointment.getUserID()+"'";
+                String sql = "UPDATE JDBC_HospitalSchema.DoctorTable SET Community = '" + appointment.getCommunity()
+                        + "' , Hospital = '" + appointment.getHospitalName() + "' ,DoctorName = '" + appointment.getDoctor()
+                        + "' where DoctorUserID ='" + appointment.getUserID() + "'";
                 System.out.println(sql);
-                statement.executeUpdate(sql);
+                int a = statement.executeUpdate(sql);
+                if (a == 0) {
+                    JOptionPane.showMessageDialog(this, "Updation Failed!");
+
+                    return;
+                }
                 JOptionPane.showMessageDialog(this, "Doctor UPDATED successfully!");
                 model.setRowCount(0);
                 userID.setText("");
@@ -495,7 +514,12 @@ public class HospitalAdminView extends javax.swing.JFrame {
 
                 String sql = "DELETE FROM JDBC_HospitalSchema.DoctorTable WHERE DoctorUserid ='" + appointment.getUserID() + "'";
                 System.out.println(sql);
-                statement.executeUpdate(sql);
+                int a = statement.executeUpdate(sql);
+                if (a == 0) {
+                    JOptionPane.showMessageDialog(this, "Deletion Failed!");
+
+                    return;
+                }
                 appointmentList = new ListDirectory();
                 JOptionPane.showMessageDialog(this, "Doctor Deleted successfully!");
                 model.setRowCount(0);
@@ -530,12 +554,19 @@ public class HospitalAdminView extends javax.swing.JFrame {
 
     private void patientAppointmentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_patientAppointmentsMouseClicked
         // TODO add your handling code here:
-        
+
         DefaultTableModel model = (DefaultTableModel) patientAppointments.getModel();
         int selectedRowIndex = patientAppointments.getSelectedRow();
         String patientName = (String) model.getValueAt(selectedRowIndex, 4);
         deletePatient.setText(patientName);
     }//GEN-LAST:event_patientAppointmentsMouseClicked
+
+    private void searchPatientIDKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchPatientIDKeyReleased
+        // TODO add your handling code here:
+        String query = searchPatientID.getText();
+        filterSearch(query);
+
+    }//GEN-LAST:event_searchPatientIDKeyReleased
 
     public void patientTable() {
         DefaultTableModel model = (DefaultTableModel) patientAppointments.getModel();
@@ -614,6 +645,13 @@ public class HospitalAdminView extends javax.swing.JFrame {
         }
     }
 
+    private void filterSearch(String query) {
+        DefaultTableModel model = (DefaultTableModel) patientAppointments.getModel();
+        TableRowSorter<DefaultTableModel> tableRowSorter = new TableRowSorter<DefaultTableModel>(model);
+        patientAppointments.setRowSorter(tableRowSorter);
+        tableRowSorter.setRowFilter(RowFilter.regexFilter(query));
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -648,6 +686,7 @@ public class HospitalAdminView extends javax.swing.JFrame {
             }
         });
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField community;

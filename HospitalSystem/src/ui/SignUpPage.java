@@ -194,6 +194,7 @@ public class SignUpPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please Enter all credentials!");
             userId.setText("");
             password.setText("");
+            return;
         }
         
         if (Validations.isValid(appointment.getUserID())) {

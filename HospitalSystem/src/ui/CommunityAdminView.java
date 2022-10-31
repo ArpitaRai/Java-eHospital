@@ -159,12 +159,15 @@ public class CommunityAdminView extends javax.swing.JFrame {
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel5)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel2)
-                                        .addComponent(jLabel1)
-                                        .addComponent(jLabel4)))
-                                .addGap(28, 28, 28)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel1)
+                                            .addComponent(jLabel4))
+                                        .addGap(28, 28, 28))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addGap(18, 18, 18)))
                                 .addComponent(hospitalContact, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(281, 281, 281))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -249,7 +252,7 @@ public class CommunityAdminView extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        
+
         LogInPage logInPage = new LogInPage();
         CommunityAdminView communityAdmin = new CommunityAdminView();
         communityAdmin.setVisible(false);
@@ -275,10 +278,14 @@ public class CommunityAdminView extends javax.swing.JFrame {
         try {
             try ( Connection connection = JDBCConnection.Connect()) {
                 Statement statement = (Statement) connection.createStatement();
-                String sql = "UPDATE JDBC_HospitalSchema.HospitalDetails SET City = '" + appointment.getCity() + "' ,HospitalName = '" + appointment.getHospitalName()+
-                        "' ,Contact = '" + appointment.getHospitalContact()+ "' where Community ='" + appointment.getCommunity() + "'";
+                String sql = "UPDATE JDBC_HospitalSchema.HospitalDetails SET City = '" + appointment.getCity() + "' ,HospitalName = '" + appointment.getHospitalName()
+                        + "' ,Contact = '" + appointment.getHospitalContact() + "' where Community ='" + appointment.getCommunity() + "'";
                 System.out.println(sql);
-                statement.executeUpdate(sql);
+                int a = statement.executeUpdate(sql);
+                if (a == 0) {
+                    JOptionPane.showMessageDialog(this, "Updation failed!");
+                    return;
+                }
                 JOptionPane.showMessageDialog(this, "Doctor UPDATED successfully!");
                 model.setRowCount(0);
                 hospital.setText("");
@@ -310,9 +317,13 @@ public class CommunityAdminView extends javax.swing.JFrame {
                 Appointment appointment = new Appointment();
                 appointment.setHospitalName(hospital.getText());
 
-                String sql = "DELETE FROM JDBC_HospitalSchema.HospitalDetails WHERE HospitalName ='" + appointment.getHospitalName()+ "'";
+                String sql = "DELETE FROM JDBC_HospitalSchema.HospitalDetails WHERE HospitalName ='" + appointment.getHospitalName() + "'";
                 System.out.println(sql);
-                statement.executeUpdate(sql);
+                int a= statement.executeUpdate(sql);
+                if (a == 0) {
+                    JOptionPane.showMessageDialog(this, "Deletion failed!");
+                    return;
+                }
                 appointmentList = new ListDirectory();
                 JOptionPane.showMessageDialog(this, "Hospital Deleted successfully!");
                 model.setRowCount(0);
@@ -339,15 +350,23 @@ public class CommunityAdminView extends javax.swing.JFrame {
         appointment.setCity(cityName.getText());
         appointment.setHospitalContact(hospitalContact.getText());
 
+        if (appointment.getHospitalName() == null || appointment.getHospitalName().trim().isEmpty() || "".equals(appointment.getHospitalName())
+                || appointment.getCommunity() == null || appointment.getCommunity().trim().isEmpty() || "".equals(appointment.getCommunity())
+                || appointment.getCity() == null || appointment.getCity().trim().isEmpty() || "".equals(appointment.getCity())
+                || appointment.getHospitalContact() == null || appointment.getHospitalContact().trim().isEmpty() || "".equals(appointment.getHospitalContact())) {
+            JOptionPane.showMessageDialog(this, "Please Enter all credentials!");
+            return;
+        }
+
         try {
             try ( Connection connection = JDBCConnection.Connect()) {
                 Statement statement = (Statement) connection.createStatement();
 
                 String sql = "INSERT INTO JDBC_HospitalSchema.HospitalDetails " + "(HospitalName, Community, City, Contact)"
-                        + "VALUES ('" + appointment.getHospitalName()+ "' ,'" + appointment.getCommunity() + "' , '" + appointment.getCity()+ "' , '" + appointment.getHospitalContact()+ "');";
+                        + "VALUES ('" + appointment.getHospitalName() + "' ,'" + appointment.getCommunity() + "' , '" + appointment.getCity() + "' , '" + appointment.getHospitalContact() + "');";
 
                 statement.executeUpdate(sql);
-                JOptionPane.showMessageDialog(this, "Hospital created Successfully!!");
+                JOptionPane.showMessageDialog(this, "Hospital created Details!!");
                 hospital.setText("");
                 communityName.setText("");
                 hospitalContact.setText("");

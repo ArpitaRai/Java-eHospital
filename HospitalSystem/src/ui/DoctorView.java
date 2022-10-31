@@ -7,9 +7,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import model.Appointment;
 import model.ListDirectory;
+import utilities.Validations;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -95,6 +98,14 @@ public class DoctorView extends javax.swing.JFrame {
         });
 
         patientSearch.setBackground(new java.awt.Color(231, 239, 246));
+        patientSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                patientSearchKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                patientSearchKeyReleased(evt);
+            }
+        });
 
         patientHistory.setBackground(new java.awt.Color(231, 239, 246));
         patientHistory.setModel(new javax.swing.table.DefaultTableModel(
@@ -158,7 +169,7 @@ public class DoctorView extends javax.swing.JFrame {
 
         jLabel4.setText("Gender");
 
-        jLabel8.setText("UserID");
+        jLabel8.setText("Patient Email ID");
 
         patientName1.setBackground(new java.awt.Color(231, 239, 246));
 
@@ -198,25 +209,28 @@ public class DoctorView extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel11)
-                                            .addComponent(jLabel10))
-                                        .addGap(39, 39, 39)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addComponent(genderCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(0, 34, Short.MAX_VALUE))
-                                            .addComponent(heartRate)
-                                            .addComponent(date)))
-                                    .addComponent(jLabel4)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addGap(63, 63, 63)
-                                        .addComponent(patientUserID, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel2)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(bloodPressure)))
+                                        .addComponent(bloodPressure))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel11)
+                                                    .addComponent(jLabel10))
+                                                .addGap(39, 39, 39)
+                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                                        .addComponent(genderCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGap(0, 34, Short.MAX_VALUE))
+                                                    .addComponent(heartRate)
+                                                    .addComponent(date)))
+                                            .addComponent(jLabel4)
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addComponent(jLabel8)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(patientUserID, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(0, 0, Short.MAX_VALUE)))
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -230,7 +244,7 @@ public class DoctorView extends javax.swing.JFrame {
                                                 .addComponent(jLabel9)
                                                 .addGap(18, 18, 18)
                                                 .addComponent(diagnosis, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(183, 213, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGap(109, 109, 109)
                                         .addComponent(jButton2)
@@ -240,9 +254,8 @@ public class DoctorView extends javax.swing.JFrame {
                                         .addComponent(deletePatient)
                                         .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
                                 .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
+                                .addGap(24, 24, 24)
                                 .addComponent(patientName1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -263,7 +276,7 @@ public class DoctorView extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(91, 91, 91)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jButton4)
                 .addGap(40, 40, 40))
         );
@@ -283,10 +296,10 @@ public class DoctorView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(patientName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(patientName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(diagnosis, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -412,7 +425,7 @@ public class DoctorView extends javax.swing.JFrame {
                     .addComponent(appointmentView)
                     .addComponent(jLabel12)
                     .addComponent(doctorName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 252, Short.MAX_VALUE))
+                .addGap(0, 251, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Appointments", jPanel3);
@@ -425,7 +438,7 @@ public class DoctorView extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 632, Short.MAX_VALUE)
         );
 
         pack();
@@ -493,6 +506,24 @@ public class DoctorView extends javax.swing.JFrame {
         appointment.setPrescription(prescription.getText());
         appointment.setDiagnosis(diagnosis.getText());
 
+        if (appointment.getUserID() == null || appointment.getUserID().trim().isEmpty() || "".equals(appointment.getUserID())
+                || appointment.getPatientName() == null || appointment.getPatientName().trim().isEmpty() || "".equals(appointment.getPatientName())
+                || appointment.getGender() == null || appointment.getGender().trim().isEmpty() || "".equals(appointment.getGender())
+                || appointment.getHeartRate() == null || appointment.getHeartRate().trim().isEmpty() || "".equals(appointment.getHeartRate())
+                || appointment.getDate() == null || appointment.getDate().trim().isEmpty() || "".equals(appointment.getDate())
+                || appointment.getBloodPressure() == null || appointment.getBloodPressure().trim().isEmpty() || "".equals(appointment.getBloodPressure())
+                || appointment.getPrescription() == null || appointment.getPrescription().trim().isEmpty() || "".equals(appointment.getPrescription())
+                || appointment.getDiagnosis() == null || appointment.getDiagnosis().trim().isEmpty() || "".equals(appointment.getDiagnosis())) {
+            JOptionPane.showMessageDialog(this, "Please Enter all credentials!");
+            return;
+        }
+
+        if (!Validations.isValidDate(appointment.getDate())) {
+            JOptionPane.showMessageDialog(this, "Incorrect Date Format!");
+            date.setText("");
+            return;
+        }
+
         try {
             try ( Connection connection = JDBCConnection.Connect()) {
                 Statement statement = (Statement) connection.createStatement();
@@ -500,7 +531,8 @@ public class DoctorView extends javax.swing.JFrame {
                 String sql = "INSERT INTO JDBC_HospitalSchema.PatientTable " + "(Date, PatientName, Gender, PatientUserID, HeartRate, BP, Diagnosis, Prescription)"
                         + "VALUES ('" + appointment.getDate() + "' , '" + appointment.getPatientName() + "' , '" + appointment.getGender() + "' , '" + appointment.getUserID() + "', '"
                         + appointment.getHeartRate() + "', '" + appointment.getBloodPressure() + "', '" + appointment.getDiagnosis() + "', '" + appointment.getPrescription() + "');";
-
+                
+                System.out.println(sql);
                 statement.executeUpdate(sql);
                 JOptionPane.showMessageDialog(this, "Patient created secccessfully!!");
                 patientName1.setText("");
@@ -517,7 +549,7 @@ public class DoctorView extends javax.swing.JFrame {
             System.out.println("DB Connection Close!!!");
         } catch (HeadlessException | SQLException exception) {
             System.out.println(exception);
-            JOptionPane.showMessageDialog(this, exception);
+            JOptionPane.showMessageDialog(this, "Patient Email doesn't exist, please register!");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -565,8 +597,12 @@ public class DoctorView extends javax.swing.JFrame {
 
                 String sql = "DELETE FROM JDBC_HospitalSchema.PatientTable WHERE PatientUserID ='" + appointment.getUserID() + "'";
                 System.out.println(sql);
-                statement.executeUpdate(sql);
+               int a=  statement.executeUpdate(sql);
                 appointmentList = new ListDirectory();
+                if(0==a)
+                { JOptionPane.showMessageDialog(this, "Deletion Failed, enter the correct details!");
+                return;
+                    }
                 JOptionPane.showMessageDialog(this, "Patient Deleted successfully!");
                 model.setRowCount(0);
                 patientName1.setText("");
@@ -615,7 +651,12 @@ public class DoctorView extends javax.swing.JFrame {
                         + "' , Prescription = '" + appointment.getPrescription() + "' , Date = '" + appointment.getDate()
                         + "' where PatientUserID ='" + appointment.getUserID() + "'";
                 System.out.println(sql);
-                statement.executeUpdate(sql);
+                int a= statement.executeUpdate(sql);
+                System.out.println(sql);  
+                if(0==a)
+                { JOptionPane.showMessageDialog(this, "Updation Failed, enter the correct details!");
+                return;
+                    }
                 JOptionPane.showMessageDialog(this, "Doctor UPDATED successfully!");
                 model.setRowCount(0);
                 patientName1.setText("");
@@ -632,10 +673,23 @@ public class DoctorView extends javax.swing.JFrame {
             System.out.println("DB Connection Close!!!");
         } catch (HeadlessException | SQLException exception) {
             System.out.println(exception);
-            JOptionPane.showMessageDialog(this, exception);
+            JOptionPane.showMessageDialog(this, "UserID doesn't exist!");
         }
         patientTable();
     }//GEN-LAST:event_updatePatientActionPerformed
+
+    private void patientSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_patientSearchKeyPressed
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_patientSearchKeyPressed
+
+    private void patientSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_patientSearchKeyReleased
+        // TODO add your handling code here:
+
+        String query = patientSearch.getText();
+        filterSearch(query);
+    }//GEN-LAST:event_patientSearchKeyReleased
 
     private void patientTable() {
         DefaultTableModel model = (DefaultTableModel) patientHistory.getModel();
@@ -655,18 +709,18 @@ public class DoctorView extends javax.swing.JFrame {
                     appointment.setPrescription(resultSet.getString("Prescription"));
                     appointment.setUserID(resultSet.getString("PatientUserID"));
 
-                    System.out.println(" Apppointment Time : " + appointment.getTime());
+                    System.out.println(" User ID : " + appointment.getUserID());
 
                     model.setRowCount(0);
                     for (Appointment appointmentObj : appointmentList.getAppointment()) {
                         Object[] row = new Object[7];
+                        row[0] = appointmentObj.getUserID();
                         row[1] = appointmentObj.getPatientName();
                         row[2] = appointmentObj.getBloodPressure();
                         row[3] = appointmentObj.getHeartRate();
                         row[4] = appointmentObj.getDiagnosis();
-                        row[5] = appointmentObj.getDate();
-                        row[0] = appointment.getUserID();
-                        row[6] = appointment.getPrescription();
+                        row[5] = appointmentObj.getDate();       
+                        row[6] = appointmentObj.getPrescription();
                         model.addRow(row);
                     }
 
@@ -714,6 +768,13 @@ public class DoctorView extends javax.swing.JFrame {
                 new DoctorView().setVisible(true);
             }
         });
+    }
+
+    private void filterSearch(String query) {
+        DefaultTableModel model = (DefaultTableModel) patientHistory.getModel();
+        TableRowSorter<DefaultTableModel> tableRowSorter = new TableRowSorter<DefaultTableModel>(model);
+        patientHistory.setRowSorter(tableRowSorter);
+        tableRowSorter.setRowFilter(RowFilter.regexFilter(query));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.Appointment;
 import model.ListDirectory;
+import utilities.Validations;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -27,7 +28,7 @@ public class PatientView extends javax.swing.JFrame {
      * Creates new form Patient1
      */
     ListDirectory appointmentList;
-
+    
     public PatientView() {
         initComponents();
         doctorHospitalList();
@@ -216,7 +217,7 @@ public class PatientView extends javax.swing.JFrame {
             }
         });
 
-        jLabel22.setText("UserID");
+        jLabel22.setText(" Email ID");
 
         userID.setBackground(new java.awt.Color(231, 239, 246));
         userID.addActionListener(new java.awt.event.ActionListener() {
@@ -333,10 +334,11 @@ public class PatientView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel21)
-                                    .addComponent(patientName, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(6, 6, 6)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(patientName, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel21))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel15)
                                     .addComponent(doctor1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -509,11 +511,11 @@ public class PatientView extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-        Appointment appointmet= new Appointment();
+        Appointment appointmet = new Appointment();
         appointmet.setUserID(userID.getText());
-        if ("".equals(appointmet.getUserID())|| appointmet.getUserID() == null) {
+        if ("".equals(appointmet.getUserID()) || appointmet.getUserID() == null) {
             JOptionPane.showMessageDialog(this, "Enter an email id to check for appointment!");
-           
+            return;
         }
         try {
             try ( Connection connection = JDBCConnection.Connect()) {
@@ -529,7 +531,7 @@ public class PatientView extends javax.swing.JFrame {
                     appointment.setDoctor(resultSet.getString("Doctor"));
                     appointment.setHospitalName(resultSet.getString("HospitalName"));
                     System.out.println(" Apppointment Time : " + appointment.getTime());
-
+                    
                     model.setRowCount(0);
                     for (Appointment appointmentObj : appointmentList.getAppointment()) {
                         Object[] row = new Object[4];
@@ -539,8 +541,13 @@ public class PatientView extends javax.swing.JFrame {
                         row[3] = appointmentObj.getHospitalName();
                         model.addRow(row);
                     }
-                } 
+                }
+                while (!resultSet.next()) {
+                    JOptionPane.showMessageDialog(this, "User doesn't exist!");
+                    return;
+                }
             }
+            
             System.out.println("DB Connection Close!!!");
         } catch (HeadlessException | SQLException exception) {
             System.out.println(exception);
@@ -566,22 +573,25 @@ public class PatientView extends javax.swing.JFrame {
                 Statement statement = (Statement) connection.createStatement();
                 Appointment appointment = new Appointment();
                 appointment.setUserID(userID.getText());
-
+                
                 String sql = "DELETE FROM JDBC_HospitalSchema.Appointment WHERE userid ='" + appointment.getUserID() + "'";
                 System.out.println(sql);
-                statement.executeUpdate(sql);
+                int a = statement.executeUpdate(sql);
+                if (a == 0) {
+                    JOptionPane.showMessageDialog(this, "Appointment doesn't exist!");
+                    return;
+                }
                 appointmentList = new ListDirectory();
-                JOptionPane.showMessageDialog(this, "Employee Deleted successfully!");
+                JOptionPane.showMessageDialog(this, "Appointment Deleted successfully!");
                 model.setRowCount(0);
                 userID.setText("");
-
+                
             }
             System.out.println("DB Connection Close!!!");
         } catch (HeadlessException | SQLException exception) {
             System.out.println(exception);
             JOptionPane.showMessageDialog(this, exception);
         }
-        appointmentTable();
 
     }//GEN-LAST:event_deleteAppointmentActionPerformed
 
@@ -602,15 +612,35 @@ public class PatientView extends javax.swing.JFrame {
         appointment.setUserID(userID.getText());
         appointment.setCity(city.getText());
         appointment.setSymptoms(symptoms.getText());
-
+        
+        if (!Validations.isValidDate(appointment.getDate())|| !Validations.isTimeValid(appointment.getTime())) {
+            JOptionPane.showMessageDialog(this, "Incorrect Date or Time Format!");
+            date.setText("");
+            time.setText("");
+            return;
+        }
+        
+        if (appointment.getUserID() == null || appointment.getUserID().trim().isEmpty() || "".equals(appointment.getUserID())
+                || appointment.getPatientName() == null || appointment.getPatientName().trim().isEmpty() || "".equals(appointment.getPatientName())
+                || appointment.getDoctor() == null || appointment.getDoctor().trim().isEmpty() || "".equals(appointment.getDoctor())
+                || appointment.getHospitalName() == null || appointment.getHospitalName().trim().isEmpty() || "".equals(appointment.getHospitalName())
+                || appointment.getCommunity() == null || appointment.getCommunity().trim().isEmpty() || "".equals(appointment.getCommunity())
+                || appointment.getDate() == null || appointment.getDate().trim().isEmpty() || "".equals(appointment.getDate())
+                || appointment.getTime() == null || appointment.getTime().trim().isEmpty() || "".equals(appointment.getTime())
+                || appointment.getCity() == null || appointment.getCity().trim().isEmpty() || "".equals(appointment.getCity())
+                || appointment.getSymptoms() == null || appointment.getSymptoms().trim().isEmpty() || "".equals(appointment.getSymptoms())) {
+            JOptionPane.showMessageDialog(this, "Please Enter all credentials!");
+            return;
+        }
+        
         try {
             try ( Connection connection = JDBCConnection.Connect()) {
                 Statement statement = (Statement) connection.createStatement();
-
+                
                 String sql = "INSERT INTO JDBC_HospitalSchema.Appointment " + "(UserID,PatientName, Doctor, HospitalName,CommunityName,Date,Time,CityName, Symptoms)"
                         + "VALUES ('" + appointment.getUserID() + "' ,'" + appointment.getPatientName() + "' , '" + appointment.getDoctor() + "' , '" + appointment.getHospitalName() + "', '"
                         + appointment.getCommunity() + "', '" + appointment.getDate() + "', '" + appointment.getTime() + "', '" + appointment.getCity() + "', '" + appointment.getSymptoms() + "');";
-
+                
                 statement.executeUpdate(sql);
                 JOptionPane.showMessageDialog(this, "Appointment created secccessfully!!");
                 patientName.setText("");
@@ -622,14 +652,23 @@ public class PatientView extends javax.swing.JFrame {
                 symptoms.setText("");
                 city.setText("");
                 userID.setText("");
-
+                
             }
             System.out.println("DB Connection Close!!!");
         } catch (HeadlessException | SQLException exception) {
             System.out.println(exception);
-            JOptionPane.showMessageDialog(this, exception);
+            JOptionPane.showMessageDialog(this, "User doesn't exist!");
+            patientName.setText("");
+            doctor1.setText("");
+            hospital.setText("");
+            community.setText("");
+            date.setText("");
+            time.setText("");
+            symptoms.setText("");
+            city.setText("");
+            userID.setText("");
         }
-
+        
 
     }//GEN-LAST:event_bookAppointment1ActionPerformed
 
@@ -653,7 +692,7 @@ public class PatientView extends javax.swing.JFrame {
 
         Appointment appointment = new Appointment();;
         appointment.setUserID(userid.getText());
-
+        
         DefaultTableModel model = (DefaultTableModel) appointmentHistory.getModel();
         try {
             try ( Connection connection = JDBCConnection.Connect()) {
@@ -670,7 +709,7 @@ public class PatientView extends javax.swing.JFrame {
                     appointment1.setSymptoms(resultSet.getString("Symptoms"));
                     appointment1.setHospitalName(resultSet.getString("HospitalName"));
                     System.out.println(" Apppointment Time : " + appointment.getTime());
-
+                    
                     model.setRowCount(0);
                     for (Appointment appointmentObj : appointmentList.getAppointment()) {
                         Object[] row = new Object[4];
@@ -680,6 +719,11 @@ public class PatientView extends javax.swing.JFrame {
                         row[2] = appointmentObj.getHospitalName();
                         model.addRow(row);
                     }
+                }
+                while (!resultSet.next()) {
+                    JOptionPane.showMessageDialog(this, "Invalid Email ID!");
+                    userid.setText("");
+                    return;
                 }
             }
             System.out.println("DB Connection Close!!!");
@@ -715,7 +759,7 @@ public class PatientView extends javax.swing.JFrame {
         city.setText(city1);
 
     }//GEN-LAST:event_jTable1MouseClicked
-
+    
     private void appointmentTable() {
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
         try {
@@ -731,7 +775,7 @@ public class PatientView extends javax.swing.JFrame {
                     appointment.setDoctor(resultSet.getString("Doctor"));
                     appointment.setHospitalName(resultSet.getString("HospitalName"));
                     System.out.println(" Apppointment Time : " + appointment.getTime());
-
+                    
                     model.setRowCount(0);
                     for (Appointment appointmentObj : appointmentList.getAppointment()) {
                         Object[] row = new Object[4];
@@ -741,9 +785,9 @@ public class PatientView extends javax.swing.JFrame {
                         row[3] = appointmentObj.getHospitalName();
                         model.addRow(row);
                     }
-
+                    
                 }
-
+                
             }
             System.out.println("DB Connection Close!!!");
         } catch (HeadlessException | SQLException exception) {
@@ -751,10 +795,10 @@ public class PatientView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, exception);
         }
     }
-
+    
     private void doctorHospitalList() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-
+        
         try {
             try ( Connection connection = JDBCConnection.Connect()) {
                 Statement statement = (Statement) connection.createStatement();
@@ -767,7 +811,7 @@ public class PatientView extends javax.swing.JFrame {
                     appointment.setHospitalName(resultSet.getString("HospitalName"));
                     appointment.setCommunity(resultSet.getString("Community"));
                     appointment.setCity(resultSet.getString("City"));
-
+                    
                     model.setRowCount(0);
                     for (Appointment appointmentObj : appointmentList.getAppointment()) {
                         Object[] row = new Object[4];
@@ -777,7 +821,7 @@ public class PatientView extends javax.swing.JFrame {
                         row[3] = appointmentObj.getCity();
                         model.addRow(row);
                     }
-
+                    
                 }
             }
             System.out.println("DB Connection Close!!!");
