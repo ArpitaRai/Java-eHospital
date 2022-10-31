@@ -8,7 +8,7 @@ package model;
  *
  * @author arpitarai
  */
-public class LogInCredential {
+public class Person {
 
     private String UserType;
     private String UserID;
