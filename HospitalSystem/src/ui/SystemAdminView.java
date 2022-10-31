@@ -872,28 +872,28 @@ public class SystemAdminView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        LogInPage logInPage = new LogInPage();
+        NortheasternHospitalManagementSystem logInPage = new NortheasternHospitalManagementSystem();
         logInPage.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        LogInPage logInPage = new LogInPage();
+        NortheasternHospitalManagementSystem logInPage = new NortheasternHospitalManagementSystem();
         logInPage.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        LogInPage logInPage = new LogInPage();
+        NortheasternHospitalManagementSystem logInPage = new NortheasternHospitalManagementSystem();
         logInPage.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        LogInPage logInPage = new LogInPage();
+        NortheasternHospitalManagementSystem logInPage = new NortheasternHospitalManagementSystem();
         logInPage.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -913,6 +913,20 @@ public class SystemAdminView extends javax.swing.JFrame {
         appointment.setCommunity(communityName.getText());
         appointment.setCity(cityName.getText());
         appointment.setHospitalContact(hospitalContact.getText());
+
+        if (appointment.getHospitalName() == null || appointment.getHospitalName().trim().isEmpty() || "".equals(appointment.getHospitalName())
+                || appointment.getCommunity() == null || appointment.getCommunity().trim().isEmpty() || "".equals(appointment.getCommunity())
+                || appointment.getCity() == null || appointment.getCity().trim().isEmpty() || "".equals(appointment.getCity())
+                || appointment.getHospitalContact() == null || appointment.getHospitalContact().trim().isEmpty() || "".equals(appointment.getHospitalContact())) {
+            JOptionPane.showMessageDialog(this, "Please Enter all credentials!");
+            return;
+        }
+
+        if (!Validations.isContactValid(appointment.getHospitalContact())) {
+            JOptionPane.showMessageDialog(this, "Contact number invalid!");
+            return;
+
+        }
 
         try {
             try ( Connection connection = JDBCConnection.Connect()) {
@@ -995,6 +1009,12 @@ public class SystemAdminView extends javax.swing.JFrame {
                 || appointment.getHospitalContact() == null || appointment.getHospitalContact().trim().isEmpty() || "".equals(appointment.getHospitalContact())) {
             JOptionPane.showMessageDialog(this, "Please Enter all credentials!");
             return;
+        }
+
+        if (!Validations.isContactValid(appointment.getHospitalContact())) {
+            JOptionPane.showMessageDialog(this, "Contact number invalid!");
+            return;
+
         }
 
         try {
@@ -1139,13 +1159,21 @@ public class SystemAdminView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Select the row you want to UPDATE");
             return;
         }
-        DefaultTableModel model = (DefaultTableModel) patientAppointments1.getModel();
         appointmentList = new ListDirectory();
         Appointment appointment = appointmentList.addAppointment();
         appointment.setUserID(userID.getText());
         appointment.setDoctor(doctorName.getText());
         appointment.setHospitalName(community1.getText());
         appointment.setCommunity(community.getText());
+
+        if (appointment.getUserID() == null || appointment.getUserID().trim().isEmpty() || "".equals(appointment.getUserID())
+                || appointment.getDoctor() == null || appointment.getDoctor().trim().isEmpty() || "".equals(appointment.getDoctor())
+                || appointment.getHospitalName() == null || appointment.getHospitalName().trim().isEmpty() || "".equals(appointment.getHospitalName())
+                || appointment.getCommunity() == null || appointment.getCommunity().trim().isEmpty() || "".equals(appointment.getCommunity())) {
+            JOptionPane.showMessageDialog(this, "Please Enter all credentials!");
+            return;
+        }
+        DefaultTableModel model = (DefaultTableModel) patientAppointments1.getModel();
 
         try {
             try ( Connection connection = JDBCConnection.Connect()) {
@@ -1256,6 +1284,23 @@ public class SystemAdminView extends javax.swing.JFrame {
         appointment.setBloodPressure(bloodPressure.getText());
         appointment.setPrescription(prescription.getText());
         appointment.setDiagnosis(diagnosis.getText());
+        if (appointment.getUserID() == null || appointment.getUserID().trim().isEmpty() || "".equals(appointment.getUserID())
+                || appointment.getPatientName() == null || appointment.getPatientName().trim().isEmpty() || "".equals(appointment.getPatientName())
+                || appointment.getGender() == null || appointment.getGender().trim().isEmpty() || "".equals(appointment.getGender())
+                || appointment.getHeartRate() == null || appointment.getHeartRate().trim().isEmpty() || "".equals(appointment.getHeartRate())
+                || appointment.getDate() == null || appointment.getDate().trim().isEmpty() || "".equals(appointment.getDate())
+                || appointment.getBloodPressure() == null || appointment.getBloodPressure().trim().isEmpty() || "".equals(appointment.getBloodPressure())
+                || appointment.getPrescription() == null || appointment.getPrescription().trim().isEmpty() || "".equals(appointment.getPrescription())
+                || appointment.getDiagnosis() == null || appointment.getDiagnosis().trim().isEmpty() || "".equals(appointment.getDiagnosis())) {
+            JOptionPane.showMessageDialog(this, "Please Enter all credentials!");
+            return;
+        }
+
+        if (!Validations.isValidDate(appointment.getDate())) {
+            JOptionPane.showMessageDialog(this, "Incorrect Date Format!");
+            date.setText("");
+            return;
+        }
 
         try {
             try ( Connection connection = JDBCConnection.Connect()) {
@@ -1272,7 +1317,7 @@ public class SystemAdminView extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Updation Failed, enter the correct details!");
                     return;
                 }
-                JOptionPane.showMessageDialog(this, "Doctor UPDATED successfully!");
+                JOptionPane.showMessageDialog(this, "Patient UPDATED successfully!");
                 model.setRowCount(0);
                 patientName1.setText("");
                 patientUserID.setText("");
@@ -1376,6 +1421,13 @@ public class SystemAdminView extends javax.swing.JFrame {
         appointment.setCommunity(community2.getText());
         appointment.setCity(city2.getText());
         appointment.setZip(zipCode.getText());
+        
+         if (appointment.getCommunity() == null || appointment.getCommunity().trim().isEmpty() || "".equals(appointment.getCommunity())
+                || appointment.getCity() == null || appointment.getCity().trim().isEmpty() || "".equals(appointment.getCity())
+                || appointment.getZip() == null || appointment.getZip().trim().isEmpty() || "".equals(appointment.getZip())) {
+            JOptionPane.showMessageDialog(this, "Please Enter all credentials!");
+            return;
+        }
 
         try {
             try ( Connection connection = JDBCConnection.Connect()) {
@@ -1466,7 +1518,6 @@ public class SystemAdminView extends javax.swing.JFrame {
                     appointment.setCommunity(resultSet.getString("Community"));
                     appointment.setCity(resultSet.getString("City"));
                     appointment.setHospitalContact(resultSet.getString("Contact"));
-                    System.out.println(" Apppointment Time : " + appointment.getTime());
 
                     model.setRowCount(0);
                     for (Appointment appointmentObj : appointmentList.getAppointment()) {
@@ -1552,8 +1603,8 @@ public class SystemAdminView extends javax.swing.JFrame {
                         row[3] = appointmentObj.getHeartRate();
                         row[4] = appointmentObj.getDiagnosis();
                         row[5] = appointmentObj.getDate();
-                        row[0] = appointment.getUserID();
-                        row[6] = appointment.getPrescription();
+                        row[0] = appointmentObj.getUserID();
+                        row[6] = appointmentObj.getPrescription();
                         model.addRow(row);
                     }
 
@@ -1610,38 +1661,38 @@ public class SystemAdminView extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SystemAdminView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SystemAdminView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SystemAdminView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SystemAdminView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SystemAdminView().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(SystemAdminView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(SystemAdminView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(SystemAdminView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(SystemAdminView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new SystemAdminView().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField bloodPressure;

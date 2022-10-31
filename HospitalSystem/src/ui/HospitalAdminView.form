@@ -186,7 +186,7 @@
             </Container>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Search Patient"/>
+                <Property name="text" type="java.lang.String" value="Search "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="searchPatientID">

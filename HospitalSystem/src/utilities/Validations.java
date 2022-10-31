@@ -34,5 +34,14 @@ public class Validations {
         Matcher matcher = pattern.matcher(time);
         return matcher.matches();
     }
+       public static boolean isContactValid(String time) {
+        String regex
+                = "(0/91)?[7-9][0-9]{9}";
+        Pattern pattern = Pattern.compile(regex);
+
+        Matcher matcher = pattern.matcher(time);
+        return matcher.matches();
+    }
+     
 
 }
