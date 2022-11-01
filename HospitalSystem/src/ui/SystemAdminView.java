@@ -939,7 +939,7 @@ public class SystemAdminView extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Updation failed!");
                     return;
                 }
-                JOptionPane.showMessageDialog(this, "Doctor UPDATED successfully!");
+                JOptionPane.showMessageDialog(this, "Hospital UPDATED successfully!");
                 model.setRowCount(0);
                 hospital.setText("");
                 communityName.setText("");
@@ -1463,13 +1463,14 @@ public class SystemAdminView extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) communityTable.getModel();
         appointmentList = new ListDirectory();
         Appointment appointment = appointmentList.addAppointment();
+        appointment.setCommunity(community2.getText());
 
         try {
             try ( Connection connection = JDBCConnection.Connect()) {
                 Statement statement = (Statement) connection.createStatement();
                 appointment.setUserID(patientUserID.getText());
 
-                String sql = "DELETE FROM JDBC_HospitalSchema.Community WHERE Community ='" + appointment.getCommunity() + "'";
+                String sql = "DELETE FROM JDBC_HospitalSchema.Community WHERE CommunityName ='" + appointment.getCommunity() + "'";
                 System.out.println(sql);
                 statement.executeUpdate(sql);
                 appointmentList = new ListDirectory();
