@@ -23,7 +23,7 @@ public class JDBCConnection {
     public static Connection Connect(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/JDBC_HospitalSchema", "root", "9125arpitarai");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/JDBC_HospitalSchema", "root", "***********");
         } catch (ClassNotFoundException | SQLException exception) {
             return null;
         }
